@@ -18,7 +18,7 @@
         }
 
         .sidebar {
-            flex: 0 0 250px;
+            flex: 0 0 200px;
             background-color: #a15252;
             color: #fff;
             min-height: 100vh; /* Tambahkan tinggi minimum 100% dari tinggi viewport */
@@ -49,27 +49,28 @@
         }
 
         .navbar {
-            background-color: #343a40;
+            background-color: #bea2a2;
             color: #fff;
             padding: 10px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            
         }
 
         .navbar .logo {
-            display: flex;
-            align-items: center;
+            max-width: 100%; /* Memastikan gambar tidak melampaui area elemen induk */
+            height: auto;    /* Menjaga rasio aspek gambar */
+            width: 00px;    /* Ukuran default logo */
         }
 
         .navbar img {
-            height: 40px;
-            margin-right: 10px;
+            height: 100px; /* Sesuaikan tinggi untuk logo yang lebih besar */
+            width: auto;   /* Pertahankan proporsi gambar */
         }
 
         .navbar .nav-links a {
             color: #fff;
-            margin-left: 20px;
+            margin: 10px;
             text-decoration: none;
         }
 
@@ -83,11 +84,11 @@
     <!-- Navbar section -->
     <nav class="navbar">
         <div class="logo">
-            <img src="logo.png" alt="Logo"> <!-- Ganti 'logo.png' dengan path ke logo Anda -->
-            <span>My Website</span>
+            <img src="{{ asset('images/logo1.png') }}" alt="Logo">
+            
         </div>
         <div class="nav-links">
-            <a href="#">Home</a>
+            <a href="#">Dashboard</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
         </div>

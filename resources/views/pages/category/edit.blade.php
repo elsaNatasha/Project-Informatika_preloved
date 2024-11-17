@@ -57,8 +57,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 mt-3">
-                            <input type="submit" class="btn btn-primary" value="Perbarui">
-                            <a href="{{ route('category.index') }}" class="btn btn-secondary">Batal</a>
+                            <input type="submit" class="btn" value="Update" style="background-color: #a15252; color: white; font-weight: bold;">
+                            <a href="{{ route('category.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </div>
                 </form>

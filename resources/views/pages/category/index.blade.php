@@ -58,8 +58,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 mt-3">
-                            <input type="submit" class="btn btn-primary" value="Tambahkan">
+                            <input type="submit" class="btn" value="Tambahkan" style="background-color: #a15252; color: white; font-weight: bold;">
                         </div>
+                    </div>
+                    
                     </div>
                 </form>
             </div>
@@ -87,7 +89,7 @@
                             </td>
                             <td scope="col">
                                 <a href="{{ route('category.edit', $category->id) }}">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button class="btn btn-secondary btn-sm">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
                                     </button>
                                 </a>
