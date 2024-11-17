@@ -2,6 +2,20 @@
 
 @section('content')
 <div class="container">
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
     <h3 align="center">Category</h3>
     <br>
     <div class="row">
@@ -77,12 +91,24 @@
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
                                     </button>
                                 </a>
+                                
 
-                                <form action="{{ route('category.destroy', $category->id) }}" method="POST" style="display:inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
+                                <form action="{{ route('category.destroy', $category->id) }}" method="POST" style="display:inline-block" 
+                                    onsubmit="return confirmDeletion(event, '{{ $category->name }}')">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                              </form>
+                              
+                              <script>
+                                  function confirmDeletion(event, categoryName) {
+                                      const confirmation = confirm(`Apakah benar ingin menghapus Kategori? "${categoryName}"?`);
+                                      if (!confirmation) {
+                                          event.preventDefault(); // Mencegah pengiriman formulir jika pengguna membatalkan
+                                      }
+                                      return confirmation; // Hanya mengirim formulir jika pengguna mengonfirmasi
+                                  }
+                              </script>
                             </td>
                         </tr>        
                     @endforeach

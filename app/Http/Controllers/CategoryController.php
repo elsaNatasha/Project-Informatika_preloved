@@ -31,14 +31,40 @@ class CategoryController extends Controller
         // Simpan kategori jika validasi lolos
         Category::create($request->all());
     
-        return redirect()->route('category.index')->with('success', 'Category created successfully.');
+        return redirect()->route('category.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function destroy($id)
 {
     $category = $this->category->findOrFail($id);
     $category->delete();
-    return redirect()->route('category.index')->with('success', 'Category deleted successfully');
+    
+    // Tambahkan pesan flash
+    session()->flash('success', 'Category berhasil dihapus!');
+    return redirect()->route('category.index');
+
 }
+
+public function edit($id)
+{
+    $category = Category::findOrFail($id);
+    return view('pages.category.edit', compact('category'));
+}
+
+public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'status' => 'required|in:1,2',
+    ]);
+
+    $category = Category::findOrFail($id);
+    $category->update($validatedData);
+
+    // Flash message untuk notifikasi
+    session()->flash('success', 'Category berhasil diperbarui!');
+    return redirect()->route('category.index');
+}
+
 
 }
