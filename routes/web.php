@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('login/', function () {
+    return view('login');
+});
+
 Route::get('/layout', function () {
     return view('layout');
 });
@@ -26,3 +30,4 @@ Route::get('/layout', function () {
 Route::resource('/category',CategoryController::class);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
+
