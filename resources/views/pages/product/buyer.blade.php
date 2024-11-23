@@ -7,7 +7,7 @@
 
     <div class="row">
         @foreach ($products as $product)
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
                 <div class="card shadow-sm" style="border-radius: 10px;">
                     @if ($product->photo)
                         <img src="{{ asset('images/' . $product->photo) }}" class="card-img-top" alt="Product image">
@@ -15,18 +15,17 @@
                         <img src="{{ asset('images/default.jpg') }}" class="card-img-top" alt="Default image">
                     @endif
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ $product->productname }}</h5>
-                        <p class="card-text">
+                        <h6 class="card-title">{{ $product->productname }}</h6>
+                        <p class="card-text small">
                             <strong>Category:</strong> {{ $product->category->name }} <br>
-                            <strong>Description:</strong> {{ $product->description }} <br>
                             <strong>Price:</strong> ${{ $product->price }}
                         </p>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-outline-secondary btn-sm mx-1">
-                                <i class="fa fa-heart"></i> Like
+                                <i class="fa fa-heart"></i>
                             </button>
                             <button class="btn btn-outline-primary btn-sm mx-1">
-                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                <i class="fa fa-shopping-cart"></i>
                             </button>
                         </div>
                     </div>
@@ -46,6 +45,8 @@
     <style>
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 200px; /* Maksimal lebar kartu lebih kecil */
+            margin: auto;
         }
 
         .card:hover {
@@ -54,7 +55,7 @@
         }
 
         .card-img-top {
-            height: 150px; /* Tinggi lebih kecil */
+            height: 100px; /* Tinggi gambar lebih kecil */
             width: 100%;
             object-fit: contain; /* Gambar tidak terpotong */
             border-top-left-radius: 10px;
@@ -62,7 +63,25 @@
         }
 
         .card-body {
-            padding: 10px; /* Mengecilkan padding body kartu */
+            padding: 8px; /* Mengecilkan padding body kartu */
+        }
+
+        .card-title {
+            font-size: 0.9rem; /* Ukuran font lebih kecil */
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 0.8rem; /* Ukuran font deskripsi lebih kecil */
+        }
+
+        .btn {
+            font-size: 0.75rem; /* Ukuran tombol lebih kecil */
+            padding: 4px 8px;
+        }
+
+        .container h3 {
+            font-size: 1.5rem; /* Ukuran judul lebih kecil */
         }
     </style>
 @endpush
