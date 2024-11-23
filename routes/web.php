@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 
@@ -15,8 +16,21 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+
+});*/
+
+
+
+
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+
+Route::get('login/', function () {
+    return view('login');
 });
 
 Route::get('/layout', function () {
@@ -30,7 +44,9 @@ Route::get('login/', function () {
 Route::resource('/category',CategoryController::class);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
+
 Route::resource('/product',ProductsController::class);
 Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
 Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
 Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
+

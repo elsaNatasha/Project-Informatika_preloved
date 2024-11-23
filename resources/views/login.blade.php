@@ -41,7 +41,13 @@
             object-fit: cover;
             border-radius: 50%;
             box-shadow: 0px 0px 3px #D47697,
+
                 0px 0px 0px 2px #D47697,
+
+
+                0px 0px 0px 2px #ac1e44,
+                0px 0px 0px 2px #c72c48,
+
                 8px 8px 15px #D47697,
                 -8px -8px 15px #D47697;
                 display: block; /* Ubah gambar menjadi elemen blok */
@@ -91,7 +97,13 @@
             width: 85%;
             margin: 20px auto;
             height: 40px;
+
             background-color: #A82451;
+
+
+            background-color: #ac1e44;
+            background-color:#ac1e44;
+
             color: #fff;
             border: none;
             border-radius: 20px;
@@ -103,7 +115,13 @@
         }
 
         .wrapper .btn:hover {
+
             background-color: #039BE5;
+
+            background-color: #722f37;
+            background-color: #7c0a02;
+
+
         }
 
         .wrapper .text-center {
@@ -113,11 +131,24 @@
         .wrapper .text-center a {
             text-decoration: none;
             font-size: 0.85rem;
+
             color: #03A9F4;
         }
 
         .wrapper .text-center a:hover {
             color: #039BE5;
+
+            color: #9f1d35;
+        }
+
+        .wrapper .text-center a:hover {
+            color: #722f37;
+            color: #ac1e44;
+        }
+
+        .wrapper .text-center a:hover {
+            color: #7c0a02;
+
         }
     </style>
 </head>
