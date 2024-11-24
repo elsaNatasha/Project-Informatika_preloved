@@ -52,3 +52,16 @@ Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('pro
 Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
 Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
 
+//=======
+
+// Route::middleware(['auth'])->group(function () {
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+// });
+//Profile Penjual
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
+Route::get('/profile/product/create', [ProfileController::class, 'createProduct'])->name('product.create');
+Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
+//Edit Profile
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+//>>>>>>> Stashed changes
