@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::resource('/category',CategoryController::class);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
+//<<<<<<< Updated upstream
 Route::resource('/product',ProductsController::class);
 Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
 Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
