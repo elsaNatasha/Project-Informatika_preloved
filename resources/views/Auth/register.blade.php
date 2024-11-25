@@ -142,35 +142,47 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-panel">
-            <!-- Optional content for left panel -->
-        </div>
-        <div class="right-panel">
-            <h2>Create Account</h2>
-            <form id="registrationForm">
-                <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Nama" required>
-                <input type="email" id="email" name="email" placeholder="Email" required>
-                <input type="text" id="no_hp" name="no_hp" placeholder="Telp" required>
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                
-                <button type="button" class="join-btn" onclick="submitForm()">Register</button>
-                <p>or</p>
-                <!-- Google Sign Up Button with Image and Text -->
-                <button class="google-btn">
-                  
-                    <span>Sign up with Google</span>
-                </button>
-            </form>
-            
-            <!-- Success Message -->
-            <div id="successMessage" class="message">
-                <p>Registrasi berhasil! Selamat, aktivasi akun Anda berhasil.</p>
-                <button onclick="redirectToLogin()">Login</button>
+<div class="container">
+    <div class="left-panel">
+        <!-- Optional content for left panel -->
+    </div>
+    <div class="right-panel">
+        <h2>Create Account</h2>
+
+        <!-- Menampilkan pesan error -->
+        @if ($errors->any())
+            <div class="alert alert-danger" style="color: red; margin-bottom: 15px;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
+
+        <form id="registrationForm" method="POST" action="{{ route('register') }}">
+            @csrf <!-- Token CSRF -->
+            <input type="text" id="nama_lengkap" name="name" placeholder="Nama" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="text" id="no_hp" name="phone" placeholder="Telp" required>
+            
+    <input type="text" id="address" name="address" placeholder="Alamat" required>
+
+    <input type="text" id="username" name="username" placeholder="Username" required>
+
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
+            
+            <button type="submit" class="join-btn">Register</button>
+           
+        </form>
+        
+        <div id="successMessage" class="message" style="display: none;">
+            <p>Registrasi berhasil! Selamat, aktivasi akun Anda berhasil.</p>
+            <button onclick="redirectToLogin()">Login</button>
         </div>
     </div>
+</div>
 
     <script>
         function submitForm() {
