@@ -107,6 +107,7 @@
                     <li><a href="{{ route('product.index') }}">Product</a></li>
                     <li><a href="{{ route('products.buyers') }}">Informasi Product</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
+                    <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
                 

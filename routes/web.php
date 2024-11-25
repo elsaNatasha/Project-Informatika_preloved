@@ -62,7 +62,7 @@ Route::get('/editprofile', [ProfileController::class, 'editProfile'])->name('edi
 
 
 // Mix and Match
-Route::get('/mix-match', [MixMatchController::class, 'index'])->name('');
+Route::get('/mix-match', [MixMatchController::class, 'index'])->name('mix-match.index');
 //>>>>>>> Stashed changes
 Route::middleware(['auth'])->group(function () {
     
