@@ -16,10 +16,10 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-<<<<<<< HEAD
-});*/
+
+});
 
 
 
