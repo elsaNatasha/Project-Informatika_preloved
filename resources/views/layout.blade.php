@@ -102,6 +102,7 @@
                     <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
                     <li><a href="{{ route('products.buyers') }}">Informasi Product</a></li>
+                    <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
                 
