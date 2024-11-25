@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FinancialReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,10 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
 
-});*/
+});
 
 
 
@@ -65,3 +67,13 @@ Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
 //Edit Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 //>>>>>>> Stashed changes
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
+    Route::get('/laporan-keuangan', [FinancialReportController::class, 'index']);
+});
+
+
