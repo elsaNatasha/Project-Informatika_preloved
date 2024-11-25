@@ -21,12 +21,11 @@ use App\Http\Controllers\FinancialReportController;
 
 Route::get('/', function () {
     return view('welcome');
-
 });
 
-
-
-
+Route::get('laporan_keuangan/', function () {
+    return view('laporan_keuangan');
+});
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -54,7 +53,6 @@ Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('pro
 Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
 Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
 
-//=======
 
 // Route::middleware(['auth'])->group(function () {
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
