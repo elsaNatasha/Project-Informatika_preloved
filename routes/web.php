@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FavoriteController;
 
- 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,19 +19,12 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-
-});*/
-
-
-
-
+});
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
-
-
 
 Route::get('login/', function () {
     return view('login');
@@ -41,8 +34,23 @@ Route::get('/layout', function () {
     return view('layout');
 });
 
-Route::resource('/category',CategoryController::class);
+Route::resource('/category', CategoryController::class);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
+Route::resource('/product', ProductsController::class);
+Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
+Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
+Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
 
+// Routes terkait Profile
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
+Route::get('/profile/product/create', [ProfileController::class, 'createProduct'])->name('product.create');
+Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
+
+// Routes terkait Favorites
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');

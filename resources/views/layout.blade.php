@@ -97,10 +97,14 @@
     <div class="container1">
         <nav class="sidebar">
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Category</a></li>
-                <li><a href="#">Product</a></li>
-                <li><a href="#">Logout</a></li>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="{{ route('category.index') }}">Category</a></li>
+                    <li><a href="{{ route('product.index') }}">Product</a></li>
+                    <li><a href="{{ route('products.buyers') }}">Informasi Product</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+                
             </ul>
         </nav>
         <main class="content">

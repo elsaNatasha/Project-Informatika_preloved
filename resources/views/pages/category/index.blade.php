@@ -93,8 +93,6 @@
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
                                     </button>
                                 </a>
-                                
-
                                 <form action="{{ route('category.destroy', $category->id) }}" method="POST" style="display:inline-block" 
                                     onsubmit="return confirmDeletion(event, '{{ $category->name }}')">
                                   @csrf
