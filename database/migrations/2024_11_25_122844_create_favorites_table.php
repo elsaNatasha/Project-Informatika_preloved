@@ -9,10 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_favorite')->primary(); // Primary key adalah id_favorite
             $table->timestamps();
         });
     }
@@ -20,7 +20,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('favorites');
     }
