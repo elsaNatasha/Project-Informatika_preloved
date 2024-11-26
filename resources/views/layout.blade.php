@@ -92,9 +92,13 @@
             
         </div>
         <div class="nav-links">
-            <a href="#">Dashboard</a>
+            <a href="{{ route('products.buyers') }}">Dashboard</a>
             <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+                <i class="fab fa-instagram" style="font-size: 20px;"></i>
+            </a>
+
+
         </div>
     </nav>
 
@@ -102,10 +106,10 @@
         <nav class="sidebar">
             <ul>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
+                    
+                    <li><a href="{{ route('products.buyers') }}">Dashboard</a></li>
                     <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
-                    <li><a href="{{ route('products.buyers') }}">Informasi Product</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
                     <li><a href="#">Logout</a></li>
