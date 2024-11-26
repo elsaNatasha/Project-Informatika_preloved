@@ -54,24 +54,29 @@
             padding: 10px 20px;
             display: flex;
             align-items: center;
-            
+            overflow: hidden; /* Pastikan elemen tidak meluap */
+            height: 130px; /* Tetapkan tinggi navbar tetap */
         }
 
         .navbar .logo {
             max-width: 100%; /* Memastikan gambar tidak melampaui area elemen induk */
-            height: auto;    /* Menjaga rasio aspek gambar */
-            width: 00px;    /* Ukuran default logo */
+            height: auto;
         }
 
         .navbar img {
-            height: 100px; /* Sesuaikan tinggi untuk logo yang lebih besar */
-            width: auto;   /* Pertahankan proporsi gambar */
+            height: 200px; /* Perbesar logo tanpa memengaruhi navbar */
+            width: auto;
+            transform: translateY(-20px); /* Sesuaikan posisi logo jika terlalu besar */
         }
+
 
         .navbar .nav-links a {
             color: #fff;
             margin: 10px;
             text-decoration: none;
+            position: relative;
+            left: -50px; /* Pindahkan lebih ke kiri */
+            top: -50px; /* Pindahkan sedikit ke atas */
         }
 
         .navbar .nav-links a:hover {
@@ -92,9 +97,12 @@
             
         </div>
         <div class="nav-links">
-            <a href="#">Dashboard</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="{{ route('products.buyers') }}">Dashboard</a>
+            <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+                <i class="fab fa-instagram" style="font-size: 20px;"></i>
+            </a>
+
+
         </div>
     </nav>
 
@@ -102,10 +110,10 @@
         <nav class="sidebar">
             <ul>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
+                    
+                    <li><a href="{{ route('products.buyers') }}">Dashboard</a></li>
                     <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
-                    <li><a href="{{ route('products.buyers') }}">Informasi Product</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
                     <li><a href="#">Logout</a></li>
