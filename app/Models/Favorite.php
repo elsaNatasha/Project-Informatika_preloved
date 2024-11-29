@@ -10,19 +10,22 @@ class Favorite extends Model
 {
     use HasFactory;
 
-    // Menentukan kolom yang dapat diisi
-    protected $fillable = ['user_id', 'product_id'];
-
-    // Relasi ke model Products
-    public function product()
-    {
-        // Menghubungkan Favorite ke Products
-        return $this->belongsTo(Product::class, 'product_id'); // Pastikan ini mengarah ke model Products
-    }
+    // Kolom yang dapat diisi secara mass-assignment
+    protected $fillable = [
+        'id_favorite',
+        'id_user',
+        'id_produk',
+    ];
 
     // Relasi ke model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    // Relasi ke model Product
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'id_produk');
     }
 }

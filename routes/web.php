@@ -23,8 +23,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('laporan_keuangan/', function () {
     return view('laporan_keuangan');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');

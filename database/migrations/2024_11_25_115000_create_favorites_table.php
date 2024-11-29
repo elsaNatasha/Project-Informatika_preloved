@@ -4,26 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateFavoritesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->id();  // Kolom ID favorit
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Relasi dengan tabel users
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');  // Relasi dengan tabel products
-            $table->timestamps();  // Timestamps untuk created_at dan updated_at
+            $table->id('id_favorite'); // Primary key
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_produk');
+            $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_produk')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('favorites');
     }
-};
+}
+
