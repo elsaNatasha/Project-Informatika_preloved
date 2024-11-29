@@ -1,12 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MixMatchController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+=======
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductsController;
+
+>>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 
 
 
@@ -34,10 +41,13 @@ Route::get('login/', function () {
     return view('login');
 });
 
+=======
+>>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
 Route::get('/layout', function () {
     return view('layout');
 });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 Route::get('login/', function () {
     return view('login');
@@ -49,10 +59,13 @@ Route::get('/products', [ProductController::class, 'index'])->name('products');
 
 =======
 >>>>>>> a34c71aed7e475e3a6c79cd62c65fa1ec8b8a42f
+=======
+>>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
 Route::resource('/category',CategoryController::class);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
+<<<<<<< HEAD
 Route::resource('/product',ProductsController::class);
 Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
 Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
@@ -92,3 +105,5 @@ Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'sto
 
 // Route untuk menghapus favorit (menggunakan DELETE)
 Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+=======
+>>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
