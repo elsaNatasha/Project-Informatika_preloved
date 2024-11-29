@@ -8,6 +8,7 @@ use App\Http\Controllers\MixMatchController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,4 +92,9 @@ Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'sto
 
 // Route untuk menghapus favorit (menggunakan DELETE)
 Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
+Route::post('/cart', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
 

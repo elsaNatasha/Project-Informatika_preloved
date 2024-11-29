@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('charts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); // Kolom user_id
+            $table->unsignedBigInteger('product_id'); // Kolom product_id
             $table->timestamps();
+
+            // Tambahkan foreign key
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('charts');
+        Schema::dropIfExists('carts');
     }
 };

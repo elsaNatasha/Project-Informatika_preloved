@@ -24,7 +24,7 @@
                             <button class="btn btn-outline-secondary btn-sm mx-1">
                                 <i class="fa fa-heart"></i>
                             </button>
-                            <button class="btn btn-outline-primary btn-sm mx-1">
+                            <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart" data-product-id="{{ $product->id }}">
                                 <i class="fa fa-shopping-cart"></i>
                             </button>
                         </div>
