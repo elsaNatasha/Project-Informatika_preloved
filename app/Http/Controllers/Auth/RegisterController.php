@@ -21,7 +21,7 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
+            'username' => 'required|string|unique:users,username|max:255',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -34,6 +34,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('register')->with('success', 'Pendaftaran berhasil!');
+        return redirect()->route('login')->with('success', 'Pendaftaran berhasil!');
     }
 }
+
