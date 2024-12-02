@@ -6,23 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->id();  // Kolom ID favorit
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Relasi dengan tabel users
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');  // Relasi dengan tabel products
-            $table->timestamps();  // Timestamps untuk created_at dan updated_at
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('favorites');
     }

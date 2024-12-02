@@ -4,25 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Products;
 
 class Favorite extends Model
 {
     use HasFactory;
 
-    // Menentukan kolom yang dapat diisi
     protected $fillable = ['user_id', 'product_id'];
 
-    // Relasi ke model Products
     public function product()
     {
-        // Menghubungkan Favorite ke Products
-        return $this->belongsTo(Product::class, 'product_id'); // Pastikan ini mengarah ke model Products
+        return $this->belongsTo(Product::class);
     }
 
-    // Relasi ke model User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

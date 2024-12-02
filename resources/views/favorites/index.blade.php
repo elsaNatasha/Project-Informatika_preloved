@@ -11,6 +11,11 @@
         </div>
     @endif
 
+    {{-- Mendefinisikan variabel $isLoggedIn --}}
+    @php
+        $isLoggedIn = auth()->check(); // True jika pengguna login
+    @endphp
+
     {{-- Jika pengguna belum login --}}
     @if (!$isLoggedIn)
         <div class="alert alert-warning">
