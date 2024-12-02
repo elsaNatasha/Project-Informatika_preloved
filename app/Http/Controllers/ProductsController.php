@@ -152,7 +152,7 @@ class ProductsController extends Controller
           //  dd(Auth::user());
         // Ambil semua produk yang tersedia
         $products = Products::with('category')->get();
-        
+        // dd(Auth::id());
         // Tampilkan halaman buyer dengan data produk
         return view('pages.product.buyer', compact('products'));
         }

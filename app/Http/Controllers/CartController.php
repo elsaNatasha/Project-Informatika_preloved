@@ -9,6 +9,7 @@ class CartController extends Controller
 {
     public function add(Request $request)
     {
+        // dd($request->all());
         // Validasi input
         $request->validate([
             'product_id' => 'required|exists:products,id',
@@ -23,14 +24,24 @@ class CartController extends Controller
             return response()->json(['message' => 'Product already in cart!'], 200);
         }
 
+        Cart::create([
+            'user_id' => auth()->id(),
+            'product_id' => $request->product_id,
+        ]);
+
+        return redirect()->route('products.buyers')->with('success', 'Berhasil tambah ke keranjang');
+
         // Menyimpan data produk ke keranjang
         $cart = new Cart();
         $cart->user_id = Auth::id();
         $cart->product_id = $request->product_id;
         $cart->save();
 
+        // Debugging
+    //    dd($cart);
+
         return response()->json(['message' => 'Product added to cart successfully!'], 200);
-    }
+     }
 
 
 
@@ -52,6 +63,8 @@ class CartController extends Controller
         {
             // Ambil item keranjang pengguna saat ini dengan relasi produk
             $carts = Cart::where('user_id', auth()->id())->with('product')->get();
+            // Debugging: Lihat isi data keranjang
+          //dd($carts);
 
             // Tampilkan halaman keranjang
             return view('pages.cart.index', compact('carts'));

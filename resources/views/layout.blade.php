@@ -142,6 +142,7 @@
                     <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
+                    <li><a href="{{ route('cart.index') }}">Cart Product</a></li>
                     <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
                     <li>
                         <form method="post" action="{{ route('logout') }}">
