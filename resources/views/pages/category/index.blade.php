@@ -93,11 +93,6 @@
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit
                                     </button>
                                 </a>
-<<<<<<< HEAD
-=======
-                                
-
->>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
                                 <form action="{{ route('category.destroy', $category->id) }}" method="POST" style="display:inline-block" 
                                     onsubmit="return confirmDeletion(event, '{{ $category->name }}')">
                                   @csrf
@@ -107,11 +102,9 @@
                               
                               <script>
                                   function confirmDeletion(event, categoryName) {
-<<<<<<< HEAD
                                       const confirmation = confirm(Apakah benar ingin menghapus Kategori? "${categoryName}"?);
-=======
                                       const confirmation = confirm(`Apakah benar ingin menghapus Kategori? "${categoryName}"?`);
->>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
+
                                       if (!confirmation) {
                                           event.preventDefault(); // Mencegah pengiriman formulir jika pengguna membatalkan
                                       }
@@ -136,8 +129,5 @@
             background-color: white;
         }
     </style>
-<<<<<<< HEAD
 @endpush
-=======
-@endpush
->>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
+
