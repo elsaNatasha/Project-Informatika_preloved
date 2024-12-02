@@ -50,7 +50,7 @@ Route::get('login/', function () {
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/login', [AuthController::class, 'login'])->name('postLogin');
+Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 
 
