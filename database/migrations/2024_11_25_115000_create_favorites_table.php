@@ -12,15 +12,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->string('id_favorite')->primary(); // Primary key adalah id_favorite
-            $table->timestamps();
+            $table->id();  // Kolom ID favorit
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Relasi dengan tabel users
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');  // Relasi dengan tabel products
+            $table->timestamps();  // Timestamps untuk created_at dan updated_at
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('favorites');
     }

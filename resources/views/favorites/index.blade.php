@@ -1,28 +1,54 @@
 @extends('layout')
 
 @section('content')
-<div class="container py-5">
-    <!-- Judul -->
-    <h1 class="text-center mb-5">PRODUK FAVORITE</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Barang Favorit</h1>
 
+    {{-- Pesan Sukses --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- Cek Apakah Ada Barang Favorit --}}
     @if($favorites->isEmpty())
-        <!-- Pesan jika favorit kosong -->
-        <div class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-            <p class="text-muted text-center">Tidak ada barang di favorit.</p>
+        <div class="text-center">
+            <p class="text-muted">Belum ada barang favorit. Tambahkan beberapa barang ke daftar favorit Anda!</p>
         </div>
     @else
-        <!-- Daftar favorit -->
-        <div class="row justify-content-center">
+        {{-- Daftar Barang Favorit --}}
+        <div class="row g-4">
             @foreach ($favorites as $favorite)
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">ID Favorite: {{ $favorite->id_favorite }}</h5>
-                            <p class="card-text">Detail barang favorit akan ditambahkan di sini.</p>
+                    <div class="card h-100 shadow-sm">
+                        {{-- Gambar Produk --}}
+                        @if($favorite->product->image)
+                            <img src="{{ asset($favorite->product->image) }}" 
+                                 class="card-img-top" 
+                                 alt="{{ $favorite->product->name }}">
+                        @else
+                            <img src="{{ asset('images/default.jpg') }}" 
+                                 class="card-img-top" 
+                                 alt="Default Image">
+                        @endif
 
-                            @auth
-                                <a href="#" class="btn btn-danger btn-sm">Hapus dari Favorit</a>
-                            @endauth
+                        {{-- Detail Produk --}}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $favorite->product->name }}</h5>
+                            <p class="card-text text-muted">{{ $favorite->product->description }}</p>
+                        </div>
+
+                        {{-- Tombol Aksi --}}
+                        <div class="card-footer text-end">
+                            <form action="{{ route('favorites.destroy', $favorite->id) }}" method="POST" 
+                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang ini dari favorit?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Hapus dari Favorit
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -30,37 +56,4 @@
         </div>
     @endif
 </div>
-
-{{-- Custom CSS --}}
-<style>
-    /* Styling container untuk favorit kosong */
-    .container {
-        padding-top: 50px;
-    }
-
-    /* Styling card */
-    .card {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-    }
-
-    /* Judul */
-    h1 {
-        font-size: 2rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: #333;
-    }
-
-    /* Styling pesan kosong */
-    .text-muted {
-        font-size: 1.2rem;
-        color: #6c757d;
-    }
-</style>
 @endsection

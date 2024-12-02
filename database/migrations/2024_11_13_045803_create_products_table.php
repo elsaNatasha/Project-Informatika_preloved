@@ -9,20 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('productname');
-            $table->foreignId('cat_id')->constrained('categories')->nullable();
-            $table->string('description');
-            $table->double('price');
-            $table->string('photo',300)->nullable();
-
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::create('products', function (Blueprint $table) {
+        $table->id();  // Kolom id sebagai primary key untuk tabel produk
+        $table->string('productname');
+        $table->foreignId('cat_id')->constrained('categories'); // Relasi ke tabel categories
+        $table->text('description');
+        $table->decimal('price', 8, 2);
+        $table->string('photo');
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
