@@ -115,8 +115,7 @@
     <!-- Navbar section -->
     <nav class="navbar">
         <div class="logo">
-
-            <img src="{{ asset('images/logo/logo1.png') }}" alt="Logo">
+               <img src="{{ asset('images/logo/logo1.png') }}" alt="Logo">
             
         </div>
         <div class="nav-links">
@@ -124,17 +123,7 @@
             <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
                 <i class="fab fa-instagram" style="font-size: 20px;"></i>
             </a>
-
-
-
-            <img src="{{ asset('images/logo1.png') }}" alt="Logo">
             
-        </div>
-        <div class="nav-links">
-            <a href="#">Dashboard</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-
         </div>
     </nav>
 
@@ -151,13 +140,6 @@
                     <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
-                
-
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Category</a></li>
-                <li><a href="#">Product</a></li>
-                <li><a href="#">Logout</a></li>
-
             </ul>
         </nav>
         <main class="content">
