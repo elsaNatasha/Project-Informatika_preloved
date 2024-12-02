@@ -26,7 +26,7 @@
                             </button>
                             <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart" data-product-id="{{ $product->id }}">
                                 <i class="fa fa-shopping-cart"></i>
-                            </button>
+                            </button>                            
                         </div>
                     </div>
                 </div>
@@ -84,4 +84,36 @@
             font-size: 1.5rem; /* Ukuran judul lebih kecil */
         }
     </style>
+@endpush
+
+@push('js')
+    <script>
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                
+                // Mengirim permintaan AJAX ke server
+                fetch('{{ route('cart.add') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'  // Mengirim token CSRF untuk proteksi
+                    },
+                    body: JSON.stringify({
+                        product_id: productId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Menampilkan pesan atau mengarahkan pengguna ke halaman cart
+                    alert(data.message);  // Pesan sukses
+                    window.location.href = '{{ route('cart.index') }}';  // Arahkan ke halaman cart
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error adding the product to your cart.');
+                });
+            });
+        });
+    </script>
 @endpush

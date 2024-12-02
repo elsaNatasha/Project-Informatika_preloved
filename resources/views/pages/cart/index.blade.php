@@ -38,17 +38,23 @@
                             </td>
                             <td>${{ number_format($cart->product->price, 2) }}</td>
                             <td>
-                                <input type="number" class="form-control text-center" 
-                                       value="1" 
-                                       min="1">
+                                <form action="{{ route('cart.update', $cart->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="number" name="quantity" class="form-control text-center" 
+                                           value="{{ $cart->quantity }}" 
+                                           min="1" 
+                                           max="99">
+                                    <button type="submit" class="btn btn-primary btn-sm mt-2">Update</button>
+                                </form>
                             </td>
-                            <td>${{ number_format($cart->product->price, 2) }}</td>
+                            <td>${{ number_format($cart->product->price * $cart->quantity, 2) }}</td>
                             <td>
                                 <form action="{{ route('cart.destroy', $cart->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i>
+                                        <i class="fa fa-trash"></i> Remove
                                     </button>
                                 </form>
                             </td>
@@ -59,6 +65,8 @@
         </div>
     @endif
 </div>
+@endsection
+
 @push('css')
 <style>
     .table img {
@@ -69,4 +77,3 @@
     }
 </style>
 @endpush
-@endsection

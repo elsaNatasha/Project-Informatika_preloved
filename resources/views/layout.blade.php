@@ -143,7 +143,12 @@
                     <li><a href="{{ route('product.index') }}">Product</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li>
+                        <form method="post" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
                 </ul>
         </nav>
         <main class="content">
