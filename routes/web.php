@@ -43,7 +43,6 @@ Route::get('/layout', function () {
     return view('layout');
 });
 
-
 // Rute untuk register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -101,7 +100,7 @@ Route::middleware('web','auth')->group(function () {
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
 Route::get('/profile/product/create', [ProfileController::class, 'createProduct'])->name('product.create');
-Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
+// Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
 //Edit Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
