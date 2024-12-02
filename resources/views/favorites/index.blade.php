@@ -11,8 +11,12 @@
         </div>
     @endif
 
-    {{-- Cek Apakah Ada Barang Favorit --}}
-    @if($favorites->isEmpty())
+    {{-- Jika pengguna belum login --}}
+    @if (!$isLoggedIn)
+        <div class="alert alert-warning">
+            <p>Silakan <a href="{{ route('login') }}">login</a> untuk melihat atau menyimpan produk favorit Anda.</p>
+        </div>
+    @elseif($favorites->isEmpty())
         <div class="text-center">
             <p class="text-muted">Belum ada barang favorit. Tambahkan beberapa barang ke daftar favorit Anda!</p>
         </div>
