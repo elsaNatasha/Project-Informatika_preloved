@@ -27,21 +27,30 @@ class FavoriteController extends Controller
 
     // Menambahkan barang ke favorit
     public function store(Request $request)
-    {
-        // Validasi ID produk
-        $request->validate([
-            'product_id' => 'required|exists:products,id', // Validasi produk
-        ]);
+{
+    // Validasi ID produk
+    $request->validate([
+        'product_id' => 'required|exists:products,id', // Validasi produk
+    ]);
 
-        // Menambahkan produk ke favorit untuk user yang login
-        Favorite::firstOrCreate([
-            'user_id' => auth()->id(),
-            'product_id' => $request->product_id,
-        ]);
-
-        // Redirect dengan pesan sukses
-        return redirect()->back()->with('success', 'Barang berhasil ditambahkan ke favorit!');
+    // Cek apakah user sudah login
+    if (!auth()->check()) {
+        return redirect()->back()->with('error', 'Anda harus login untuk menambahkan ke favorit!');
     }
+
+    // Menambahkan produk ke favorit untuk user yang login
+    $favorite = Favorite::firstOrCreate([
+        'user_id' => auth()->id(),
+        'product_id' => $request->product_id,
+    ]);
+
+    // Redirect dengan pesan sukses
+    if ($favorite->wasRecentlyCreated) {
+        return redirect()->back()->with('success', 'Barang berhasil ditambahkan ke favorit!');
+    } else {
+        return redirect()->back()->with('info', 'Barang sudah ada di daftar favorit!');
+    }
+}
 
     // Menghapus barang dari favorit
     public function destroy($id)
