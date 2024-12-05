@@ -111,7 +111,6 @@ Route::get('/editprofile', [ProfileController::class, 'editProfile'])->name('edi
 Route::get('/mix-match', [MixMatchController::class, 'index'])->name('mix-match.index');
 Route::middleware(['auth'])->group(function () {
 
-    
     // Produk
     Route::resource('/product', ProductsController::class);
     Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
