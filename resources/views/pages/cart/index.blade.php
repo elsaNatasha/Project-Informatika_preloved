@@ -40,7 +40,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="item-price" data-price="{{ $cart->product->price }}">
+                                    Rp<span class="item-price" data-price="{{ $cart->product->price }}">
                                         {{ number_format($cart->product->price) }}
                                     </span>
                                 </td>
@@ -55,7 +55,7 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <span class="item-total">{{ number_format($cart->product->price) }}</span>
+                                    Rp<span class="item-total">{{ number_format($cart->product->price) }}</span>
                                 </td>
                                 <td>
                                     <form action="{{ route('cart.destroy', $cart->id) }}" method="POST">
@@ -76,7 +76,7 @@
 
                 <!-- Total Price Section -->
                 <div class="text-center mt-3">
-                    <strong>Total: <span id="total-price"></span></strong>
+                    <strong>Total: Rp<span id="total-price"></span></strong>
                 </div>
                 
                 <button type="submit" class="btn btn-success mt-2">Proceed to Checkout</button>
