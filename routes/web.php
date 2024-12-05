@@ -9,7 +9,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +55,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 
 Route::resource('/category',CategoryController::class);
@@ -92,15 +93,17 @@ Route::middleware('web','auth')->group(function () {
     Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
     
     // Keranjang
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 });
 //Profile Penjual
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
 Route::get('/profile/product/create', [ProfileController::class, 'createProduct'])->name('product.create');
-// Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
 //Edit Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 

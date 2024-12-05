@@ -18,15 +18,19 @@
                         <h6 class="card-title">{{ $product->productname }}</h6>
                         <p class="card-text small">
                             <strong>Category:</strong> {{ $product->category->name }} <br>
-                            <strong>Price:</strong> ${{ $product->price }}
+                            <strong>Price:</strong> Rp{{ $product->price }}
                         </p>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-outline-secondary btn-sm mx-1">
                                 <i class="fa fa-heart"></i>
                             </button>
-                            <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart" data-product-id="{{ $product->id }}">
-                                <i class="fa fa-shopping-cart"></i>
-                            </button>                            
+                            <form action="{{ route('cart.add') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart" data-product-id="{{ $product->id }}">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </button>                            
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -87,7 +91,7 @@
 @endpush
 
 @push('js')
-    <script>
+    {{-- <script>
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', function () {
                 const productId = this.getAttribute('data-product-id');
@@ -115,5 +119,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endpush
