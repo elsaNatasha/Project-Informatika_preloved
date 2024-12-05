@@ -115,7 +115,7 @@ class CartController extends Controller
             }
 
             // Kirim data produk yang dipilih ke halaman checkout
-            return view('order.checkout', compact('selectedProducts'));
+            return view('cart.checkout', compact('selectedProducts'));
         }
 
 }

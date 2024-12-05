@@ -76,21 +76,15 @@
 
                 <!-- Total Price Section -->
                 <div class="text-center mt-3">
-
-                    <strong>Total: Rp<span id="total-price"></span></strong>
+                    <strong>Total: Rp<span id="total-price">0</span></strong>
                 </div>
                 
                 <form action="{{ route('checkout.show') }}" method="POST">
                     @csrf
-                    <table class="table table-bordered">
-                        <!-- Table content as before -->
-                    </table>
-                    
                     <input type="hidden" name="total_price" id="hidden-total-price">
                     <input type="hidden" name="selected_products" id="hidden-selected-products">
-                    
                     <button type="submit" class="btn btn-success mt-2">Proceed to Checkout</button>
-                </form>                
+                </form>                        
             </form>
         </div>
     @endif
@@ -112,23 +106,35 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.item-select');
-    const totalPriceElement = document.getElementById('hidden-total-price');
+    const totalPriceElement = document.getElementById('total-price');
+    const hiddenTotalPriceElement = document.getElementById('hidden-total-price');
     const selectedProductsElement = document.getElementById('hidden-selected-products');
 
-    document.querySelector('form').addEventListener('submit', function () {
-        const selectedProducts = [];
+    function calculateTotal() {
         let total = 0;
+        const selectedProducts = [];
 
         checkboxes.forEach((checkbox) => {
             if (checkbox.checked) {
-                selectedProducts.push(checkbox.dataset.id); // Assume each checkbox has `data-id` for product ID
                 total += parseFloat(checkbox.dataset.price);
+                selectedProducts.push(checkbox.dataset.id); // Ambil ID produk
             }
         });
 
-        totalPriceElement.value = total.toFixed();
+        // Perbarui tampilan total harga
+        totalPriceElement.textContent = total.toLocaleString();
+        hiddenTotalPriceElement.value = total; // Setel nilai tersembunyi untuk pengiriman
         selectedProductsElement.value = JSON.stringify(selectedProducts);
+    }
+
+    // Tambahkan event listener ke setiap checkbox
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', calculateTotal);
     });
+
+    // Hitung ulang total harga saat halaman dimuat
+    calculateTotal();
 });
-</script>
+
+</>
 @endpush

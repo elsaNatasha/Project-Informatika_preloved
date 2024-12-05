@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,6 +101,7 @@ Route::middleware('web','auth')->group(function () {
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 });
+
 //Profile Penjual
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
@@ -118,6 +120,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/product', ProductsController::class);
     Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
     Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'showCheckoutForm'])->name('checkout.show');
+    Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
 });
 
 

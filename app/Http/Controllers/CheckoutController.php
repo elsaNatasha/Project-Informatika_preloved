@@ -15,6 +15,8 @@ class CheckoutController extends Controller
         $totalPrice = $request->input('total_price', 0);
 
         return view('checkout', compact('selectedProducts', 'totalPrice'));
+        // Debug untuk memastikan data diterima
+     dd($selectedProducts, $totalPrice);
     }
 
     public function processCheckout(Request $request)
@@ -47,7 +49,7 @@ class CheckoutController extends Controller
         }
 
         // Redirect ke halaman pembayaran atau konfirmasi
-        return redirect()->route('payment.show', ['order_id' => $order->id]);
+        return redirect()->route('order.show', ['order_id' => $order->id]);
         }
 
 
