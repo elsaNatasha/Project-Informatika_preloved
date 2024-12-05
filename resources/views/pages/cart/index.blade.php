@@ -80,7 +80,17 @@
                     <strong>Total: Rp<span id="total-price"></span></strong>
                 </div>
                 
-                <button type="submit" class="btn btn-success mt-2">Proceed to Checkout</button>
+                <form action="{{ route('checkout.show') }}" method="POST">
+                    @csrf
+                    <table class="table table-bordered">
+                        <!-- Table content as before -->
+                    </table>
+                    
+                    <input type="hidden" name="total_price" id="hidden-total-price">
+                    <input type="hidden" name="selected_products" id="hidden-selected-products">
+                    
+                    <button type="submit" class="btn btn-success mt-2">Proceed to Checkout</button>
+                </form>                
             </form>
         </div>
     @endif
@@ -101,22 +111,24 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('.item-select');
-        const totalPriceElement = document.getElementById('total-price');
+    const checkboxes = document.querySelectorAll('.item-select');
+    const totalPriceElement = document.getElementById('hidden-total-price');
+    const selectedProductsElement = document.getElementById('hidden-selected-products');
 
-        function calculateTotal() {
-            let total = 0;
-            checkboxes.forEach((checkbox) => {
-                if (checkbox.checked) {
-                    total += parseFloat(checkbox.dataset.price);
-                }
-            });
-            totalPriceElement.textContent = total.toFixed();
-        }
+    document.querySelector('form').addEventListener('submit', function () {
+        const selectedProducts = [];
+        let total = 0;
 
         checkboxes.forEach((checkbox) => {
-            checkbox.addEventListener('change', calculateTotal);
+            if (checkbox.checked) {
+                selectedProducts.push(checkbox.dataset.id); // Assume each checkbox has `data-id` for product ID
+                total += parseFloat(checkbox.dataset.price);
+            }
         });
+
+        totalPriceElement.value = total.toFixed();
+        selectedProductsElement.value = JSON.stringify(selectedProducts);
     });
+});
 </script>
 @endpush
