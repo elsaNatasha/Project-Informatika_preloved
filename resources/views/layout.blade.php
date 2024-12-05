@@ -56,9 +56,7 @@
             align-items: center;
 
             overflow: hidden; /* Pastikan elemen tidak meluap */
-            height: 130px; /* Tetapkan tinggi navbar tetap */
-
-            
+            height: 130px; /* Tetapkan tinggi navbar tetap */    
 
         }
 
@@ -73,12 +71,9 @@
             width: auto;
             transform: translateY(-20px); /* Sesuaikan posisi logo jika terlalu besar */
         }
-
-
-
             height: auto;    /* Menjaga rasio aspek gambar */
             width: 00px;    /* Ukuran default logo */
-        }
+        
 
         .navbar img {
             height: 100px; /* Sesuaikan tinggi untuk logo yang lebih besar */
@@ -94,8 +89,6 @@
             position: relative;
             left: -50px; /* Pindahkan lebih ke kiri */
             top: -50px; /* Pindahkan sedikit ke atas */
-
-
         }
 
         .navbar .nav-links a:hover {
@@ -108,15 +101,12 @@
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 </head>
 <body>
     <!-- Navbar section -->
     <nav class="navbar">
         <div class="logo">
-
-            <img src="{{ asset('images/logo/logo1.png') }}" alt="Logo">
+               <img src="{{ asset('images/logo/logo1.png') }}" alt="Logo">
             
         </div>
         <div class="nav-links">
@@ -124,13 +114,12 @@
             <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
                 <i class="fab fa-instagram" style="font-size: 20px;"></i>
             </a>
-
-
-
+        </div>
 <!--            <img src="{{ asset('images/logo1.png') }}" alt="Logo"> -->
             
         </div>
         
+
     </nav>
 
     <div class="container1">
@@ -151,6 +140,7 @@
                         </form>
                     </li>
                 </ul>
+            </ul>
         </nav>
         <main class="content">
             @yield('content')

@@ -42,7 +42,6 @@ Route::get('/layout', function () {
     return view('layout');
 });
 
-
 // Rute untuk register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -53,6 +52,8 @@ Route::get('login/', function () {
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -112,7 +113,7 @@ Route::get('/editprofile', [ProfileController::class, 'editProfile'])->name('edi
 // Mix and Match
 Route::get('/mix-match', [MixMatchController::class, 'index'])->name('mix-match.index');
 Route::middleware(['auth'])->group(function () {
-    
+
     // Produk
     Route::resource('/product', ProductsController::class);
     Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
