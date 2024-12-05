@@ -54,6 +54,8 @@ Route::get('login/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 
 Route::resource('/category',CategoryController::class);
@@ -101,7 +103,6 @@ Route::middleware('web','auth')->group(function () {
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
 Route::get('/profile/product/create', [ProfileController::class, 'createProduct'])->name('product.create');
-Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
 //Edit Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
