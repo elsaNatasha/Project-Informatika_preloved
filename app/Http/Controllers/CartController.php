@@ -74,7 +74,7 @@ class CartController extends Controller
         {
             // Validasi kuantitas
             $request->validate([
-                'quantity' => 'required|integer|min:1',
+                'quantity' => 'required|integer:1',
             ]);
         
             // Temukan item keranjang berdasarkan ID
@@ -86,14 +86,36 @@ class CartController extends Controller
             }
         
             // Update kuantitas
-            $cart->quantity = $request->quantity;
+            $cart->quantity = 1;
             $cart->save();
         
             // Kembali ke halaman keranjang dengan pesan sukses
-            return redirect()->route('cart.index')->with('success', 'Quantity updated successfully.');
+            return redirect()->route('cart.index')->with('success', 'Quantity updated to 1.');
         }
-        
-    
 
+        public function checkout(Request $request)
+        {
+            // Ambil produk yang dipilih oleh pengguna untuk checkout
+            $selectedProductIds = $request->input('selected_products');
+            
+            // Validasi jika tidak ada produk yang dipilih
+            if (!$selectedProductIds) {
+                return redirect()->route('cart.index')->withErrors('No products selected for checkout.');
+            }
+            
+            // Ambil produk yang dipilih dari database
+            $selectedProducts = Cart::whereIn('id', $selectedProductIds)
+                                    ->where('user_id', auth()->id())
+                                    ->with('product')
+                                    ->get();
+            
+            // Jika produk tidak valid
+            if ($selectedProducts->isEmpty()) {
+                return redirect()->route('cart.index')->withErrors('Invalid selection.');
+            }
+
+            // Kirim data produk yang dipilih ke halaman checkout
+            return view('order.checkout', compact('selectedProducts'));
+        }
 
 }

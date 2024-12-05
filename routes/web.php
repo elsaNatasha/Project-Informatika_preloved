@@ -9,7 +9,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,11 +91,10 @@ Route::middleware('web','auth')->group(function () {
     
     // Keranjang
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-<<<<<<< HEAD
+
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-=======
 
 });
 //Profile Penjual
@@ -113,8 +111,6 @@ Route::get('/editprofile', [ProfileController::class, 'editProfile'])->name('edi
 // Mix and Match
 Route::get('/mix-match', [MixMatchController::class, 'index'])->name('mix-match.index');
 Route::middleware(['auth'])->group(function () {
-
->>>>>>> 9e1cf15c179a6452f7322f66858d9fb7b6085171
     
     // Produk
     Route::resource('/product', ProductsController::class);

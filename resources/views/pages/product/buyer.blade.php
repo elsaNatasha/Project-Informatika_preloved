@@ -18,7 +18,7 @@
                         <h6 class="card-title">{{ $product->productname }}</h6>
                         <p class="card-text small">
                             <strong>Category:</strong> {{ $product->category->name }} <br>
-                            <strong>Price:</strong> ${{ $product->price }}
+                            <strong>Price:</strong> Rp{{ $product->price }}
                         </p>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-outline-secondary btn-sm mx-1">
