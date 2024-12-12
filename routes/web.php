@@ -129,4 +129,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
     Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::post('/favorite/{product}', [FavoriteController::class, 'store'])->name('favorite.store');
 });

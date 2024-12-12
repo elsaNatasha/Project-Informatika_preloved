@@ -21,12 +21,19 @@
                             <strong>Price:</strong> ${{ $product->price }}
                         </p>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-outline-secondary btn-sm mx-1">
-                                <i class="fa fa-heart"></i>
-                            </button>
+                            {{-- Tombol Tambah ke Favorit --}}
+                            <form action="{{ route('favorites.store') }}" method="POST" class="mx-1">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+                            </form>
+
+                            {{-- Tombol Tambah ke Keranjang --}}
                             <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart" data-product-id="{{ $product->id }}">
                                 <i class="fa fa-shopping-cart"></i>
-                            </button>                            
+                            </button>
                         </div>
                     </div>
                 </div>
