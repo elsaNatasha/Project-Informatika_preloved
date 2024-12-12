@@ -11,6 +11,11 @@
         </div>
     @endif
 
+    {{-- Mendefinisikan variabel $isLoggedIn --}}
+    @php
+        $isLoggedIn = auth()->check(); // True jika pengguna login
+    @endphp
+
     {{-- Jika pengguna belum login --}}
     @if (!$isLoggedIn)
         <div class="alert alert-warning">
@@ -41,6 +46,13 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $favorite->product->name }}</h5>
                             <p class="card-text text-muted">{{ $favorite->product->description }}</p>
+                            {{-- Tombol Tambah ke Favorit --}}
+                            <form action="{{ route('favorite.store', $favorite->product->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    Tambah ke Favorit
+                                </button>
+                            </form>
                         </div>
 
                         {{-- Tombol Aksi --}}
