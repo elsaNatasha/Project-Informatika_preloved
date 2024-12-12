@@ -35,4 +35,10 @@ class Product extends Model
     {
         return $this->hasMany(Favorite::class, 'product_id');
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
 }

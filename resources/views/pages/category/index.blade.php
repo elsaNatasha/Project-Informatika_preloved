@@ -103,6 +103,8 @@
                               <script>
                                   function confirmDeletion(event, categoryName) {
                                       const confirmation = confirm(Apakah benar ingin menghapus Kategori? "${categoryName}"?);
+                                      const confirmation = confirm(`Apakah benar ingin menghapus Kategori? "${categoryName}"?`);
+
                                       if (!confirmation) {
                                           event.preventDefault(); // Mencegah pengiriman formulir jika pengguna membatalkan
                                       }
@@ -128,3 +130,4 @@
         }
     </style>
 @endpush
+

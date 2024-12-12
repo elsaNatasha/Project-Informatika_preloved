@@ -65,6 +65,4 @@ public function update(Request $request, $id)
     session()->flash('success', 'Category berhasil diperbarui!');
     return redirect()->route('category.index');
 }
-
-
 }

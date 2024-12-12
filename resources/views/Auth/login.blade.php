@@ -160,20 +160,23 @@
         <div class="name">
             Preloved B2J
         </div>
-        <form>
+        <form action="{{ route('postLogin') }}" method="POST">
+            @csrf
             <div class="form-field">
                 <span class="fas fa-user"></span>
-                <input type="text" name="userName" id="userName" placeholder="Username">
+                <input type="email" id="email" name="email" placeholder="Email">
             </div>
             <div class="form-field">
                 <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
+                <input type="password" name="password" id="password" placeholder="Password">
             </div>
             <button type="submit" class="btn">Login</button>             
         </form>
+        
         <div class="text-center">
-            <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+            <a href="#">Forget password?</a> or <a href="{{ route('register') }}">Sign up</a>
         </div>
     </div>
-</body>
+    </body>
+</html>
 </html>
