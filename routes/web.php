@@ -123,8 +123,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+   // Route::get('/checkout', [CheckoutController::class, 'showCheckoutForm'])->name('checkout.show');
+    // Rute untuk menampilkan halaman checkout (GET)
     Route::get('/checkout', [CheckoutController::class, 'showCheckoutForm'])->name('checkout.show');
+    // Rute untuk memproses checkout (POST)
+   // Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
+    Route::put('cart/{id}', [CartController::class, 'update'])->name('cart.update');
+
+
+
+
 });
 
 

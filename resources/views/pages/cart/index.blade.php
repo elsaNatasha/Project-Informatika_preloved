@@ -9,7 +9,8 @@
         <p class="text-center">Your cart is empty.</p>
     @else
         <div class="table-responsive">
-            <form>
+            <!-- Form untuk Checkout -->
+            <form action="{{ route('checkout.process') }}" method="POST">
                 @csrf
                 <table class="table table-bordered">
                     <thead>
@@ -40,34 +41,32 @@
                                     </div>
                                 </td>
                                 <td>
-                                    Rp <span class="item-price" data-price="{{ $cart->product->price }}">
+                                    Rp<span class="item-price" data-price="{{ $cart->product->price }}">
                                         {{ number_format($cart->product->price) }}
                                     </span>
                                 </td>
                                 <td>
-                                    <form action="{{ route('cart.update', $cart->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="number" name="quantity" class="form-control text-center" 
-                                               value="1" 
-                                               min="1" 
-                                               max="1" readonly>
-                                    </form>
+                                    <input type="number" class="form-control text-center" value="1" min="1" max="1" readonly>
                                 </td>
                                 <td>
                                     Rp <span class="item-total">{{ number_format($cart->product->price) }}</span>
                                 </td>
                                 <td>
-                                    <form action="{{ route('cart.destroy', $cart->id) }}" method="POST">
+                                    <!-- Form untuk Menghapus Produk -->
+                                    <form action="{{ route('cart.destroy', $cart->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm">
+                                        <button class="btn btn-danger btn-sm" type="submit">
                                             <i class="fa fa-trash"></i> Remove
                                         </button>
                                     </form>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="item-select" data-price="{{ $cart->product->price }}">
+                                    <!-- Checkbox untuk Memilih Produk -->
+                                    <input type="checkbox" class="item-select" 
+                                           name="selected_products[]" 
+                                           value="{{ $cart->product->id }}" 
+                                           data-price="{{ $cart->product->price }}">
                                 </td>
                             </tr>
                         @endforeach
@@ -76,65 +75,68 @@
 
                 <!-- Total Price Section -->
                 <div class="text-center mt-3">
-                    <strong>Total: Rp<span id="total-price">0</span></strong>
+                    <strong>Total: Rp <span id="total-price">0</span></strong>
                 </div>
-                
-                <form action="{{ route('checkout.show') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="total_price" id="hidden-total-price">
-                    <input type="hidden" name="selected_products" id="hidden-selected-products">
-                    <button type="submit" class="btn btn-success mt-2">Proceed to Checkout</button>
-                </form>                        
+
+                <input type="hidden" name="total_price" id="hidden-total-price">
+                <input type="hidden" name="selected_products" id="hidden-selected-products">
+
+                <!-- User Details Section -->
+                <div id="checkout-details" class="mt-4">
+                    <h4 class="text-center">Checkout Details</h4>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address" class="form-control" rows="3" placeholder="Your shipping address" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Checkout Button -->
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-success">Checkout</button>
+                </div>
             </form>
         </div>
     @endif
 </div>
 @endsection
 
-@push('css')
-<style>
-    .table img {
-        border-radius: 5px;
-    }
-    .table th, .table td {
-        vertical-align: middle;
-    }
-</style>
-@endpush
-
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.item-select');
-    const totalPriceElement = document.getElementById('total-price');
-    const hiddenTotalPriceElement = document.getElementById('hidden-total-price');
-    const selectedProductsElement = document.getElementById('hidden-selected-products');
+        const checkboxes = document.querySelectorAll('.item-select');
+        const totalPriceElement = document.getElementById('total-price');
+        const hiddenTotalPriceElement = document.getElementById('hidden-total-price');
+        const hiddenSelectedProductsElement = document.getElementById('hidden-selected-products');
 
-    function calculateTotal() {
-        let total = 0;
-        const selectedProducts = [];
+        function calculateTotal() {
+            let total = 0;
+            const selectedProducts = [];
+
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.dataset.price);
+                    selectedProducts.push(checkbox.value);
+                }
+            });
+
+            totalPriceElement.textContent = total.toLocaleString('id-ID');
+            hiddenTotalPriceElement.value = total;
+            hiddenSelectedProductsElement.value = JSON.stringify(selectedProducts);
+        }
 
         checkboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                total += parseFloat(checkbox.dataset.price);
-                selectedProducts.push(checkbox.dataset.id); // Ambil ID produk
-            }
+            checkbox.addEventListener('change', calculateTotal);
         });
 
-        // Perbarui tampilan total harga
-        totalPriceElement.textContent = total.toLocaleString();
-        hiddenTotalPriceElement.value = total; // Setel nilai tersembunyi untuk pengiriman
-        selectedProductsElement.value = JSON.stringify(selectedProducts);
-    }
-
-    // Tambahkan event listener ke setiap checkbox
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('change', calculateTotal);
+        calculateTotal();
     });
-
-    // Hitung ulang total harga saat halaman dimuat
-    calculateTotal();
-});
-
-</>
+</script>
 @endpush

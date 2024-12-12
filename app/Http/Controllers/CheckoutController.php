@@ -6,32 +6,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Products;
+use Illuminate\Support\Facades\Log;
+
 
 class CheckoutController extends Controller
 {
     public function showCheckoutForm(Request $request)
     {
-        $selectedProducts = $request->input('selected_products', []);
-        $totalPrice = $request->input('total_price', 0);
+        // Dekode produk yang dipilih
+        $selectedProductIds = json_decode($request->input('selected_products'));
 
-        return view('checkout', compact('selectedProducts', 'totalPrice'));
-        // Debug untuk memastikan data diterima
-     dd($selectedProducts, $totalPrice);
+        // Ambil produk yang sesuai dari database
+        $selectedProducts = Products::whereIn('id', $selectedProductIds)->get();
+
+        $totalPrice = $request->input('total_price');
+
+        return view('cart.checkout', compact('selectedProducts', 'totalPrice'));
     }
+
 
     public function processCheckout(Request $request)
     {
+        Log::info('HTTP Method:', [$request->method()]);
+        Log::info('Request Data: ', $request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:500',
             'selected_products' => 'required|array',
+            'quantities' => 'required|array',
             'total_price' => 'required|numeric',
         ]);
 
-        // Simpan data pesanan ke database
+        $selectedProducts = json_decode($request->selected_products, true);
+        $quantities = $request->quantities;
+
         $order = Order::create([
-            'user_id' => Auth::id(), // Ambil ID pengguna yang sedang login
+            'user_id' => Auth::id(),
             'name' => $request->name,
             'phone' => $request->phone,
             'address' => $request->address,
@@ -39,18 +51,17 @@ class CheckoutController extends Controller
             'status' => 'pending',
         ]);
 
-       // Simpan data order items
-        foreach ($request->selected_products as $product) {
+        foreach ($selectedProducts as $productId) {
+            $product = Products::findOrFail($productId);
             $order->items()->create([
-                'product_id' => $product['id'],
-                'quantity' => $product['quantity'],
-                'price' => $product['price'],
+                'product_id' => $product->id,
+                'quantity' => $quantities[$productId] ?? 1,
+                'price' => $product->price,
             ]);
         }
 
-        // Redirect ke halaman pembayaran atau konfirmasi
-        return redirect()->route('order.show', ['order_id' => $order->id]);
-        }
+        return redirect()->route('cart.index', ['order_id' => $order->id]);
+    }
 
 
 }

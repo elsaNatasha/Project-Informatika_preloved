@@ -86,8 +86,8 @@ class CartController extends Controller
             }
         
             // Update kuantitas
-            $cart->quantity = 1;
-            $cart->save();
+            //$cart->quantity = 1;
+            //$cart->save();
         
             // Kembali ke halaman keranjang dengan pesan sukses
             return redirect()->route('cart.index')->with('success', 'Quantity updated to 1.');
@@ -115,7 +115,7 @@ class CartController extends Controller
             }
 
             // Kirim data produk yang dipilih ke halaman checkout
-            return view('cart.checkout', compact('selectedProducts'));
+            return view('cart.index', compact('selectedProducts'));
         }
 
 }
