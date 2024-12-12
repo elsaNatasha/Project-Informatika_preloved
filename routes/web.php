@@ -134,3 +134,5 @@ Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'sto
 
 // Route untuk menghapus favorit (menggunakan DELETE)
 Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
+

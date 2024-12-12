@@ -177,5 +177,6 @@
             <a href="#">Forget password?</a> or <a href="{{ route('register') }}">Sign up</a>
         </div>
     </div>
-</body>
+    </body>
+</html>
 </html>

@@ -119,3 +119,4 @@ class CartController extends Controller
         }
 
 }
+}

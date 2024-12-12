@@ -120,6 +120,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 
     <!-- Modal Bottom -->
     <div class="modal fade" id="bottom" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -182,3 +183,11 @@
 </body>
 
 </html> --}}
+=======
+</div>
+<<<<<<< HEAD
+@endsection
+=======
+@endsection
+>>>>>>> 30c883e1d38cb5e34102c50432571f7e40d86355
+>>>>>>> a3666f4a9ea0ebd6f501f5d870cb230b961aaad7
