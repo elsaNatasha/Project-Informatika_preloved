@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Products;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductsController extends Controller
 {
@@ -145,11 +147,20 @@ class ProductsController extends Controller
 
     public function showForBuyers()
     {
+        // dd(Auth::user());
+        if (Auth::check()) {
+          //  dd(Auth::user());
         // Ambil semua produk yang tersedia
         $products = Products::with('category')->get();
-        
+        // dd(Auth::id());
         // Tampilkan halaman buyer dengan data produk
         return view('pages.product.buyer', compact('products'));
+        }
+        else {
+            // Jika pengguna tidak diautentikasi, arahkan kembali ke login
+            return redirect()->route('login')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
+        }  
     }
+    
 
 }

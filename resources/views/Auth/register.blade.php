@@ -20,8 +20,8 @@
         /* Container */
         .container {
             display: flex;
-            width: 800px;
-            height: 555px;
+            width: 1000px;
+            height: 650px;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
@@ -139,6 +139,25 @@
         .message button:hover {
             background-color: #0056b3;
         }
+
+        /* CSS for the Login link centered */
+        .text-center {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .text-center a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #007BFF;
+        }
+
+        .text-center a:hover {
+            color: #039BE5;
+            color: #9f1d35;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -174,7 +193,9 @@
             <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password" required>
             
             <button type="submit" class="join-btn">Register</button>
-           
+            <div class="text-center">
+                <a href="{{ route('login') }}">Login</a>
+            </div>
         </form>
         
         <div id="successMessage" class="message" style="display: none;">
