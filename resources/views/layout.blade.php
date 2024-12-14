@@ -132,14 +132,27 @@
                     <li><a href="{{ route('product.index') }}">Product</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="{{ route('cart.index') }}">Cart Product</a></li>
-                    <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
-                    <li>
-                        <form method="post" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
+                    <button class="btn text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMixMatch" aria-expanded="false" aria-controls="collapseMixMatch">
+                        Mix & Match Product
+                        <i class="fa-solid fa-sort-down"></i>
+                    </button>
+                    <div class="collapse mx-3" id="collapseMixMatch">
+                        <li>
+                            <a href="{{ route('mix-match.index') }}">Rekomendasi</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('mix-match.kustomisasi') }}">Kustomisasi</a>
+                        </li>
+                    </div>
+                    <li><a href="#">Logout</a></li>
                 </ul>
+                
+
+                {{-- <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Category</a></li>
+                <li><a href="#">Product</a></li> --}}
+                {{-- <li><a href="#">Logout</a></li> --}}
+
             </ul>
         </nav>
         <main class="content">
@@ -147,6 +160,10 @@
         </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+    
     @stack('scripts')
 </body>
 </html>

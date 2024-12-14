@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('favorites', function (Blueprint $table) {
-            $table->string('id_favorite')->primary(); // Primary key adalah id_favorite
-            $table->timestamps();
-        });
+        // Schema::create('favorites', function (Blueprint $table) {
+        //     $table->string('id_favorite')->primary(); // Primary key adalah id_favorite
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favorites');
+        // Schema::dropIfExists('favorites');
     }
 };

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Menambahkan kolom phone dan address
-            $table->string('phone')->nullable();  // Kolom phone
-            $table->string('address')->nullable(); // Kolom address
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     // Menambahkan kolom phone dan address
+        //     $table->string('phone')->nullable();  // Kolom phone
+        //     $table->string('address')->nullable(); // Kolom address
+        // });
     }
 
     /**
@@ -23,9 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Menghapus kolom phone dan address jika rollback
-            $table->dropColumn(['phone', 'address']);
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     // Menghapus kolom phone dan address jika rollback
+        //     $table->dropColumn(['phone', 'address']);
+        // });
     }
 };
