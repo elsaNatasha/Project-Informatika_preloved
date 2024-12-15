@@ -46,13 +46,12 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $favorite->product->name }}</h5>
                             <p class="card-text text-muted">{{ $favorite->product->description }}</p>
-                            {{-- Tombol Tambah ke Favorit --}}
-                            <form action="{{ route('favorite.store', $favorite->product->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    Tambah ke Favorit
-                                </button>
-                            </form>
+
+                            {{-- Tombol Love --}}
+                            <button type="button" class="btn btn-sm love-btn {{ in_array($favorite->product->id, $favorites->pluck('product_id')->toArray()) ? 'btn-danger' : 'btn-outline-danger' }}" 
+                                    data-product-id="{{ $favorite->product->id }}">
+                                <i class="fas fa-heart"></i> Favorit
+                            </button>
                         </div>
 
                         {{-- Tombol Aksi --}}
@@ -73,122 +72,46 @@
     @endif
 </div>
 
+<!-- Add JQuery & Font Awesome for the heart icon -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.love-btn').click(function() {
+            var productId = $(this).data('product-id');
+            var button = $(this);
+            
+            $.ajax({
+                url: '{{ route('favorite.store') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: productId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Toggle button color to red (favorited)
+                        button.toggleClass('btn-danger btn-outline-danger');
+                    } else {
+                        alert('Gagal menambahkan ke favorit!');
+                    }
+                },
+                error: function() {
+                    alert('Terjadi kesalahan. Silakan coba lagi.');
+                }
+            });
+        });
+    });
+</script>
+
 <style>
-    /* General Styles */
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f8f9fa;
-        color: #343a40;
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        color: #343a40;
-    }
-
-    p {
-        font-size: 1rem;
-        color: #6c757d;
-    }
-
-    /* Card Styles */
-    .card {
-        border: none;
-        border-radius: 10px;
-        overflow: hidden;
-        background-color: #ffffff;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-img-top {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-bottom: 1px solid #e9ecef;
-    }
-
-    .card-title {
-        font-size: 1.25rem;
-        color: #495057;
-    }
-
-    .card-text {
-        font-size: 0.9rem;
-        color: #6c757d;
-        line-height: 1.5;
-    }
-
-    .card-footer {
-        background-color: #f8f9fa;
-        border-top: 1px solid #e9ecef;
-    }
-
-    /* Button Styles */
-    .btn {
-        font-size: 0.875rem;
-        padding: 5px 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
     .btn-danger {
         background-color: #dc3545;
-        color: #ffffff;
-        border: none;
+        color: white;
     }
 
-    .btn-danger:hover {
-        background-color: #c82333;
-        color: #ffffff;
-    }
-
-    /* Alert Styles */
-    .alert {
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        font-size: 0.9rem;
-    }
-
-    .alert-warning {
-        background-color: #fff3cd;
-        color: #856404;
-        border: 1px solid #ffeeba;
-    }
-
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 2rem;
-        }
-
-        .card-img-top {
-            height: 150px;
-        }
-
-        .btn {
-            font-size: 0.8rem;
-            padding: 5px 8px;
-        }
+    .btn-outline-danger {
+        border: 1px solid #dc3545;
+        color: #dc3545;
     }
 </style>
 @endsection

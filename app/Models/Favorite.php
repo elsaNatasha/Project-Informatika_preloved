@@ -9,8 +9,20 @@ class Favorite extends Model
 {
     use HasFactory;
 
-    // Menentukan kolom yang dapat diisi
-    protected $fillable = ['user_id', 'product_id'];
+    // Menentukan nama tabel (opsional jika nama tabel bukan jamak dari model)
+    protected $table = 'favorites';
+
+    // Kolom yang dapat diisi secara massal
+    protected $fillable = ['id_favorite', 'user_id', 'product_id'];
+
+    // Menonaktifkan auto-increment karena id_favorite tidak menggunakan integer
+    public $incrementing = false;
+
+    // Menentukan tipe primary key sebagai string
+    protected $keyType = 'string';
+
+    // Kolom primary key
+    protected $primaryKey = 'id_favorite';
 
     // Jika tabel menggunakan hanya `created_at` tanpa `updated_at`
     public $timestamps = false;
@@ -21,7 +33,6 @@ class Favorite extends Model
     // Relasi ke model Products
     public function product()
     {
-        // Menghubungkan Favorite ke Products
         return $this->belongsTo(Product::class, 'product_id'); 
     }
 

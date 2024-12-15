@@ -8,55 +8,61 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
+    // Menampilkan daftar favorit pengguna
     public function index()
-{
-    // Cek jika pengguna sudah login
-    if (auth()->check()) {
-        // Mengambil data favorit berdasarkan user yang sedang login
-        $favorites = Favorite::with('product') // Mengambil data produk terkait
-                            ->where('user_id', auth()->id()) // Mengambil favorit dari user yang login
-                            ->get();
+    {
+        // Cek jika pengguna sudah login
+        if (auth()->check()) {
+            // Mengambil data favorit berdasarkan user yang sedang login
+            $favorites = Favorite::with('product') // Mengambil relasi produk
+                                ->where('user_id', auth()->id()) // Filter user yang login
+                                ->get();
 
-        // Mengirimkan data favorit ke view
-        return view('favorites.index', compact('favorites'));
-    } else {
-        // Jika belum login, tampilkan halaman kosong dengan pesan
-        return view('favorites.index', ['favorites' => [], 'isLoggedIn' => false]);
+            // Mengirimkan data favorit ke view
+            return view('favorites.index', compact('favorites'));
+        } else {
+            // Jika belum login, tampilkan halaman kosong
+            return view('favorites.index', ['favorites' => [], 'isLoggedIn' => false]);
+        }
     }
-}
 
-    // Menambahkan barang ke favorit
-    public function store(Request $request)
+    // FavoriteController.php
+public function store(Request $request)
 {
-    // Validasi ID produk
-    $request->validate([
-        'product_id' => 'required|exists:products,id', // Validasi produk
-    ]);
-
-    // Cek apakah user sudah login
+    // Pastikan user login
     if (!auth()->check()) {
-        return redirect()->back()->with('error', 'Anda harus login untuk menambahkan ke favorit!');
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    // Menambahkan produk ke favorit untuk user yang login
-    $favorite = Favorite::firstOrCreate([
-        'user_id' => auth()->id(),
-        'product_id' => $request->product_id,
-    ]);
+    $user = auth()->user();
+    $productId = $request->product_id;
 
-    // Redirect dengan pesan sukses
-    if ($favorite->wasRecentlyCreated) {
-        return redirect()->back()->with('success', 'Barang berhasil ditambahkan ke favorit!');
+    // Cek apakah produk sudah ada di favorit
+    $favorite = Favorite::where('user_id', $user->id)
+                        ->where('product_id', $productId)
+                        ->first();
+
+    if ($favorite) {
+        // Jika produk sudah ada di favorit, hapus dari favorit
+        $favorite->delete();
+        return response()->json(['success' => 'Produk dihapus dari favorit']);
     } else {
-        return redirect()->back()->with('info', 'Barang sudah ada di daftar favorit!');
+        // Jika produk belum ada, tambahkan ke favorit
+        Favorite::create([
+            'user_id' => $user->id,
+            'product_id' => $productId,
+        ]);
+        return response()->json(['success' => 'Produk ditambahkan ke favorit']);
     }
 }
 
     // Menghapus barang dari favorit
-    public function destroy($id)
+    public function destroy($id_favorite)
     {
-        // Menghapus favorit berdasarkan ID dan user yang login
-        $favorite = Favorite::where('id', $id)->where('user_id', auth()->id())->first();
+        // Menghapus favorit berdasarkan id_favorite dan user yang login
+        $favorite = Favorite::where('id_favorite', $id_favorite)
+                            ->where('user_id', auth()->id())
+                            ->first();
         
         // Cek jika favorit ada, lalu hapus
         if ($favorite) {

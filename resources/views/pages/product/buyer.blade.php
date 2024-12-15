@@ -21,14 +21,12 @@
                             <strong>Price:</strong> ${{ $product->price }}
                         </p>
                         <div class="d-flex justify-content-center">
-                            {{-- Tombol Tambah ke Favorit --}}
-                            <form action="{{ route('favorites.store') }}" method="POST" class="mx-1">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <button type="submit" class="btn btn-outline-secondary btn-sm">
-                                    <i class="fa fa-heart"></i>
-                                </button>
-                            </form>
+                            {{-- Tombol Love --}}
+                            <button type="button" class="btn btn-outline-secondary btn-sm love-btn" 
+                                data-product-id="{{ $product->id }}" 
+                                data-is-favorite="{{ $product->isFavorite() }}">
+                                <i class="fa fa-heart"></i>
+                            </button>
 
                             {{-- Tombol Tambah ke Keranjang --}}
                             <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart" data-product-id="{{ $product->id }}">
@@ -52,7 +50,7 @@
     <style>
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 200px; /* Maksimal lebar kartu lebih kecil */
+            max-width: 200px;
             margin: auto;
         }
 
@@ -62,63 +60,76 @@
         }
 
         .card-img-top {
-            height: 100px; /* Tinggi gambar lebih kecil */
+            height: 100px;
             width: 100%;
-            object-fit: contain; /* Gambar tidak terpotong */
+            object-fit: contain;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
 
         .card-body {
-            padding: 8px; /* Mengecilkan padding body kartu */
+            padding: 8px;
         }
 
         .card-title {
-            font-size: 0.9rem; /* Ukuran font lebih kecil */
+            font-size: 0.9rem;
             font-weight: bold;
         }
 
         .card-text {
-            font-size: 0.8rem; /* Ukuran font deskripsi lebih kecil */
+            font-size: 0.8rem;
         }
 
         .btn {
-            font-size: 0.75rem; /* Ukuran tombol lebih kecil */
+            font-size: 0.75rem;
             padding: 4px 8px;
         }
 
         .container h3 {
-            font-size: 1.5rem; /* Ukuran judul lebih kecil */
+            font-size: 1.5rem;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-outline-danger {
+            border: 1px solid #dc3545;
+            color: #dc3545;
         }
     </style>
 @endpush
 
 @push('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                
-                // Mengirim permintaan AJAX ke server
-                fetch('{{ route('cart.add') }}', {
+        $(document).ready(function() {
+            $('.love-btn').click(function() {
+                var productId = $(this).data('product-id');
+                var button = $(this);
+                var isFavorite = $(this).data('is-favorite') === true;
+
+                $.ajax({
+                    url: '{{ route('favorites.store') }}',
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'  // Mengirim token CSRF untuk proteksi
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId,
+                        is_favorite: isFavorite
                     },
-                    body: JSON.stringify({
-                        product_id: productId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Menampilkan pesan atau mengarahkan pengguna ke halaman cart
-                    alert(data.message);  // Pesan sukses
-                    window.location.href = '{{ route('cart.index') }}';  // Arahkan ke halaman cart
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error adding the product to your cart.');
+                    success: function(response) {
+                        // Toggle the button color based on success
+                        if (response.success) {
+                            button.toggleClass('btn-danger btn-outline-danger');
+                            button.data('is-favorite', !isFavorite);  // Update the state
+                        } else {
+                            alert('Gagal menambahkan atau menghapus produk dari favorit');
+                        }
+                    },
+                    error: function() {
+                        alert('Terjadi kesalahan. Silakan coba lagi.');
+                    }
                 });
             });
         });
