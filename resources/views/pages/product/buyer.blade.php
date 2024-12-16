@@ -120,8 +120,4 @@
             });
         });
     </script> --}}
-<<<<<<< Updated upstream
 @endpush
-=======
-
->>>>>>> Stashed changes
