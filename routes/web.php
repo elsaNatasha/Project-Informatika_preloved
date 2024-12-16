@@ -7,6 +7,8 @@ use App\Http\Controllers\MixMatchController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FinancialReportController;
+
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 /*
@@ -30,6 +32,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('laporan_keuangan/', function () {
+    return view('laporan_keuangan');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+});
+
 // Halaman layout
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -42,6 +56,9 @@ Route::get('/layout', function () {
     return view('layout');
 });
 
+Route::get('login/', function () {
+    return view('login');
+});
 // Rute untuk register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -107,11 +124,20 @@ Route::get('/profile/product/create', [ProfileController::class, 'createProduct'
 //Edit Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::post('/favorite/{product}', [FavoriteController::class, 'store'])->name('favorite.store');
+});
+
 Route::get('/editprofile', [ProfileController::class, 'editProfile'])->name('editprofile');
 
 
 // Mix and Match
 Route::get('/mix-match', [MixMatchController::class, 'index'])->name('mix-match.index');
+Route::get('/mix-match/kustomisasi', [MixMatchController::class, 'kustomisasi'])->name('mix-match.kustomisasi');
+
 Route::middleware(['auth'])->group(function () {
 
     // Produk
@@ -134,5 +160,3 @@ Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'sto
 
 // Route untuk menghapus favorit (menggunakan DELETE)
 Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
-
-

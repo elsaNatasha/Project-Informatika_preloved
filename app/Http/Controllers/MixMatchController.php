@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\MixMatchRecommendations;
 use Illuminate\Http\Request;
 
 class MixMatchController extends Controller
@@ -12,11 +13,29 @@ class MixMatchController extends Controller
      */
     public function index()
     {
+        // dd($products);
+        $datas = MixMatchRecommendations::join('products as top', 'mix_match_recommendations.top_id', '=', 'top.id')
+            ->join('products as bottom', 'mix_match_recommendations.bottom_id', '=', 'bottom.id')
+            ->select(
+                'mix_match_recommendations.id', 
+                'top.productname as top_name',
+                'top.description as top_desc',
+                'top.photo as top_photo', 
+                'bottom.productname as bottom_name', 
+                'bottom.description as bottom_desc',
+                'bottom.photo as bottom_photo'
+                )->get();
+        // dd($datas);
+        return view("pages.mix-match.index", compact('datas'));
+    }
+
+    public function kustomisasi()
+    {
         $products = Products::get();
         $tops = Products::whereIn('cat_id', ['2', '4', '5', '6', '10', '11'])->get();
         $bottoms = Products::whereIn('cat_id', ['7', '8', '9', '12'])->get();
-        // dd($products);
-        return view("pages.mix-match.index", compact("products", "tops", "bottoms"));
+        
+        return view("pages.mix-match.kustomisasi", compact("products", "tops", "bottoms"));
     }
 
     /**

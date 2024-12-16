@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->integer('quantity')->default(1); // Menambahkan kolom quantity dengan nilai default 1
-        });
+        // Schema::table('carts', function (Blueprint $table) {
+        //     $table->integer('quantity')->default(1); // Menambahkan kolom quantity dengan nilai default 1
+        // });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->dropColumn('quantity'); // Hapus kolom quantity jika migrasi dibatalkan
-        });
+        // Schema::table('carts', function (Blueprint $table) {
+        //     $table->dropColumn('quantity'); // Hapus kolom quantity jika migrasi dibatalkan
+        // });
     }
 };
