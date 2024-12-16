@@ -9,13 +9,17 @@ class CreateFavoritesTable extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->id('id_favorite'); // Primary key
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_produk');
+            $table->string('id_favorite')->primary(); // id_favorite sebagai string
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            
+            // Menambahkan index untuk mempercepat query
+            $table->index('user_id');
+            $table->index('product_id');
+            
+            // Jika ingin menggunakan timestamps default (created_at dan updated_at)
             $table->timestamps();
-
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_produk')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
