@@ -32,8 +32,8 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         {{-- Gambar Produk --}}
-                        @if($favorite->product->image)
-                            <img src="{{ asset($favorite->product->image) }}" 
+                        @if($favorite->photo)
+                            <img src="{{ asset('images/'.$favorite->photo) }}" 
                                  class="card-img-top" 
                                  alt="{{ $favorite->product->name }}">
                         @else
@@ -48,7 +48,8 @@
                             <p class="card-text text-muted">{{ $favorite->product->description }}</p>
 
                             {{-- Tombol Love --}}
-                            <button type="button" class="btn btn-sm love-btn {{ in_array($favorite->product->id, $favorites->pluck('product_id')->toArray()) ? 'btn-danger' : 'btn-outline-danger' }}" 
+                            <button type="button" class="btn btn-sm love-btn 
+                                {{ in_array($favorite->product->id, $favorites->pluck('product_id')->toArray()) ? 'btn-danger' : 'btn-outline-danger' }}" 
                                     data-product-id="{{ $favorite->product->id }}">
                                 <i class="fas fa-heart"></i> Favorit
                             </button>
@@ -72,16 +73,17 @@
     @endif
 </div>
 
-<!-- Add JQuery & Font Awesome for the heart icon -->
+<!-- JQuery for AJAX and FontAwesome for Heart Icon -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    const url = "{{ route('favorites.store') }}"
     $(document).ready(function() {
         $('.love-btn').click(function() {
             var productId = $(this).data('product-id');
             var button = $(this);
-            
+
             $.ajax({
-                url: '{{ route('favorite.store') }}',
+                url: url,  // Periksa rute yang sudah benar
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -89,10 +91,10 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Toggle button color to red (favorited)
-                        button.toggleClass('btn-danger btn-outline-danger');
+                        // Update button color based on the current favorite state
+                        button.toggleClass('btn-danger btn-outline-danger');  // Toggle warna tombol
                     } else {
-                        alert('Gagal menambahkan ke favorit!');
+                        alert('Gagal menambahkan atau menghapus produk dari favorit');
                     }
                 },
                 error: function() {

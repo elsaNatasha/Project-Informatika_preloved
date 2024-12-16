@@ -34,7 +34,9 @@ class Product extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class, 'product_id');
-    }
+        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id');
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id');
+}
 
     public function carts()
     {

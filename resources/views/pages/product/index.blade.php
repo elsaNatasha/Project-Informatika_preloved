@@ -12,6 +12,12 @@
         </div>
     @endif
 
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">

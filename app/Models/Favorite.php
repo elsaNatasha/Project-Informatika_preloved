@@ -13,27 +13,25 @@ class Favorite extends Model
     protected $table = 'favorites';
 
     // Kolom yang dapat diisi secara massal
-    protected $fillable = ['id_favorite', 'user_id', 'product_id'];
+    protected $fillable = ['user_id', 'product_id'];
 
-    // Menonaktifkan auto-increment karena id_favorite tidak menggunakan integer
-    public $incrementing = false;
+    // Menonaktifkan auto-increment jika Anda menggunakan UUID atau ID selain integer
+    // Jika tidak menggunakan UUID, Anda bisa menghapus bagian ini
+    public $incrementing = true;
 
-    // Menentukan tipe primary key sebagai string
-    protected $keyType = 'string';
+    // Menentukan tipe primary key jika menggunakan UUID atau selain integer
+    protected $keyType = 'int';  // Jika menggunakan integer, ubah ini ke 'int'
 
-    // Kolom primary key
-    protected $primaryKey = 'id_favorite';
+    // Kolom primary key (menggunakan 'id' jika tidak pakai UUID)
+    protected $primaryKey = 'id'; // Gunakan 'id' jika menggunakan ID integer
 
     // Jika tabel menggunakan hanya `created_at` tanpa `updated_at`
-    public $timestamps = false;
+    public $timestamps = true;
 
-    // Konfigurasi nama kolom timestamp (opsional)
-    const CREATED_AT = 'created_at';
-
-    // Relasi ke model Products
+    // Relasi ke model Product
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id'); 
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     // Relasi ke model User

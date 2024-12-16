@@ -10,11 +10,17 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             // Membuat id_favorite sebagai primary key
-            $table->string('id_favorite')->primary(); // id_favorite sebagai string
+            $table->id(); // id_favorite sebagai string
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->timestamps(0);  // Menggunakan timestamps dengan format tanpa 'updated_at'
+            
+            // Menambahkan index untuk mempercepat query
+            $table->index('user_id');
+            $table->index('product_id');
+            
+            // Jika ingin menggunakan timestamps default (created_at dan updated_at)
+            $table->timestamps();
         });
     }
 

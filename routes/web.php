@@ -56,7 +56,7 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/products', [ProductsController::class, 'index'])->name('products');
+// Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
 
 
 Route::resource('/category',CategoryController::class);
@@ -127,7 +127,7 @@ Route::put('/category/{id}', [CategoryController::class, 'update'])->name('categ
 
 Route::middleware('auth')->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
-    Route::post('/favorite/store', [FavoriteController::class, 'store'])->name('favorite.store');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
-    Route::post('/favorite/{product}', [FavoriteController::class, 'store'])->name('favorite.store');
 });
+
