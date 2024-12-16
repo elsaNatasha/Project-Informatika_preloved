@@ -9,7 +9,7 @@ class CreateFavoritesTable extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->string('id_favorite')->primary(); // id_favorite sebagai string
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
