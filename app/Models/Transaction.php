@@ -9,17 +9,12 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'product_id', 'amount', 'status'];
+    // Hanya menerima 'order_id' dan 'payment_proof'
+    protected $fillable = ['order_id', 'payment_proof'];
 
-    // Relasi ke model Product
-    public function product()
+    // Relasi ke model Order
+    public function order()
     {
-        return $this->belongsTo(Products::class);
-    }
-
-    // Relasi ke model User
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Order::class);
     }
 }

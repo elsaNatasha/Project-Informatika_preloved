@@ -10,6 +10,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -129,7 +130,7 @@ Route::middleware(['auth'])->group(function () {
     // Rute untuk memproses checkout (POST)
    // Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
     Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-    Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+    // Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
     Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::put('cart/{id}', [CartController::class, 'update'])->name('cart.update');
 
@@ -153,4 +154,8 @@ Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'sto
 // Route untuk menghapus favorit (menggunakan DELETE)
 Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
+Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+Route::post('/orders/{order}/verify', [OrderController::class, 'verify'])->name('admin.orders.verify');
 
+// Rute untuk proses upload bukti pembayaran
+Route::post('/checkout/upload-payment-proof', [CheckoutController::class, 'uploadPaymentProof'])->name('checkout.uploadPaymentProof');

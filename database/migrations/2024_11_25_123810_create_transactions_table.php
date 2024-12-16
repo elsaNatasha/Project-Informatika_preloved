@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
-            $table->decimal('amount', 10, 2); // Jumlah uang yang dibayar
-            $table->enum('status', ['terjual', 'dibatalkan']); // Status transaksi
+            $table->unsignedBigInteger('order_id'); // Menambahkan order_id
+            // $table->string('payment_proof')->nullable(); // Menambahkan kolom bukti pembayaran
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            
+            // Menambahkan foreign key untuk order_id
+            // $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 
