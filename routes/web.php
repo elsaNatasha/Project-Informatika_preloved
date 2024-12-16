@@ -31,6 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', function () {
     return view('welcome');
 });
+
 // Halaman layout
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -42,6 +43,7 @@ Route::get('login/', function () {
 Route::get('/layout', function () {
     return view('layout');
 });
+
 
 // Rute untuk register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -68,7 +70,8 @@ Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('pro
 Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
 Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
 
-
+//halaman detail product
+Route::get('/detailProduct', function () {return view('detailProduct');});
 
 // Rute untuk melihat produk bagi pembeli (dengan middleware auth)
 Route::middleware('web','auth')->group(function () {
