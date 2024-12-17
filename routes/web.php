@@ -10,7 +10,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,12 +100,12 @@ Route::middleware('web','auth')->group(function () {
     
     // Keranjang
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 });
+
 //Profile Penjual
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::get('/profile/financial-report', [ProfileController::class, 'financialReport'])->name('financial.report');
@@ -145,3 +146,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
 
+// Rute untuk proses upload bukti pembayaran
+Route::post('/checkout/upload-payment-proof', [CheckoutController::class, 'uploadPaymentProof'])->name('checkout.uploadPaymentProof');
