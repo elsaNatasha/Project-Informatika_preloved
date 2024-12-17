@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <h3 align="center">Products</h3>
     <br>
 

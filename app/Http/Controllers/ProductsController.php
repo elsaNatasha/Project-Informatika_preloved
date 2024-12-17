@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -13,14 +13,14 @@ class ProductsController extends Controller
     protected $products;
 
     public function __construct(){
-        $this->products = new Products();
+        $this->products = new Product();
     }
 
    public function index()
     {
     // Mengambil semua produk dari model Product
    // $products = $this->products->all(); 
-    $products = Products::with('category')->get(); // Mengambil semua produk beserta relasinya
+    $products = Product::with('category')->get(); // Mengambil semua produk beserta relasinya
     $categories = Category::pluck('name', 'id');
     
 
@@ -60,7 +60,7 @@ class ProductsController extends Controller
         $request ->file('photo')->move(public_path('images'),$fileName);
         $validatedData['photo'] = $fileName;
        }
-       Products::create($validatedData);
+       Product::create($validatedData);
        return redirect()->route('product.index')->with('success', 'Product added successfully!');
 
     }
@@ -70,7 +70,7 @@ class ProductsController extends Controller
      */
     public function show(string $id)
     {
-            $products = Products::findOrFail($id);
+            $products = Product::findOrFail($id);
             
             return view('pages.product.show', compact('products'));
     }
@@ -81,7 +81,7 @@ class ProductsController extends Controller
     public function edit(string $id)
     {
         // Temukan produk berdasarkan ID
-        $product = Products::findOrFail($id);
+        $product = Product::findOrFail($id);
         $categories = Category::all(); // Ambil semua kategori
         // Tampilkan view edit dengan data produk
         return view('pages.product.edit', compact('product','categories'));
@@ -103,7 +103,7 @@ class ProductsController extends Controller
         ]);
     
         // Temukan produk berdasarkan ID
-        $product = Products::findOrFail($id);
+        $product = Product::findOrFail($id);
     
         // Jika ada file foto baru, simpan file tersebut
         if ($request->hasFile('photo')) {
@@ -137,7 +137,7 @@ class ProductsController extends Controller
      */
     public function destroy(string $id)
     {
-            $product = Products::findOrFail($id);
+            $product = Product::findOrFail($id);
             $product->delete();
         
             return redirect()->route('product.index')->with('success', 'Product deleted successfully');
@@ -151,8 +151,8 @@ class ProductsController extends Controller
         if (Auth::check()) {
           //  dd(Auth::user());
         // Ambil semua produk yang tersedia
-        $products = Products::with('category')->get();
-        // dd(Auth::id());
+        $products = Product::with('category')->get();
+        
         // Tampilkan halaman buyer dengan data produk
         return view('pages.product.buyer', compact('products'));
         }

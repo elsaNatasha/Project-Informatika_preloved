@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,13 +127,9 @@ Route::resource('/category', CategoryController::class);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
-// Route untuk menampilkan halaman favorit (menggunakan GET)
-Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
-
-// Route untuk menambahkan favorit (menggunakan POST)
-Route::middleware(['auth'])->post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
-
-// Route untuk menghapus favorit (menggunakan DELETE)
-Route::middleware(['auth'])->delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+});
 
