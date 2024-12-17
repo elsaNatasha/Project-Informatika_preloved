@@ -130,6 +130,7 @@
                     <li><a href="{{ route('products.buyers') }}">Dashboard</a></li>
                     <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
+                    <li><a href="{{ route('detailProducts.index') }}">Detail Produk</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="{{ route('mix-match.index') }}">Mix&Match Product</a></li>
                     <li>
