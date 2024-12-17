@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\MixMatchRecommendations;
 use Illuminate\Http\Request;
 
@@ -31,9 +31,9 @@ class MixMatchController extends Controller
 
     public function kustomisasi()
     {
-        $products = Products::get();
-        $tops = Products::whereIn('cat_id', ['2', '4', '5', '6', '10', '11'])->get();
-        $bottoms = Products::whereIn('cat_id', ['7', '8', '9', '12'])->get();
+        $products = Product::get();
+        $tops = Product::whereIn('cat_id', ['2', '4', '5', '6', '10', '11'])->get();
+        $bottoms = Product::whereIn('cat_id', ['7', '8', '9', '12'])->get();
         
         return view("pages.mix-match.kustomisasi", compact("products", "tops", "bottoms"));
     }

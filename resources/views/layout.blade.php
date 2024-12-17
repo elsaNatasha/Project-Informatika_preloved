@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Layout</title>
     <style>
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -14,20 +16,23 @@
 
         .container1 {
             display: flex;
-            min-height: 100vh; /* Pastikan container memiliki tinggi minimal 100% dari tampilan */
+            min-height: 100vh;
+            /* Pastikan container memiliki tinggi minimal 100% dari tampilan */
         }
 
         .sidebar {
             flex: 0 0 200px;
             background-color: #a15252;
             color: #fff;
-            min-height: 100vh; /* Tambahkan tinggi minimum 100% dari tinggi viewport */
+            min-height: 100vh;
+            /* Tambahkan tinggi minimum 100% dari tinggi viewport */
         }
 
         .sidebar ul {
             list-style: none;
             padding: 0;
-            margin: 0; /* Pastikan tidak ada margin tambahan */
+            margin: 0;
+            /* Pastikan tidak ada margin tambahan */
         }
 
         .sidebar ul li {
@@ -55,29 +60,39 @@
             display: flex;
             align-items: center;
 
-            overflow: hidden; /* Pastikan elemen tidak meluap */
-            height: 130px; /* Tetapkan tinggi navbar tetap */    
+            overflow: hidden;
+            /* Pastikan elemen tidak meluap */
+            height: 130px;
+            /* Tetapkan tinggi navbar tetap */
 
         }
 
         .navbar .logo {
-            max-width: 100%; /* Memastikan gambar tidak melampaui area elemen induk */
+            max-width: 100%;
+            /* Memastikan gambar tidak melampaui area elemen induk */
 
             height: auto;
         }
 
         .navbar img {
-            height: 200px; /* Perbesar logo tanpa memengaruhi navbar */
+            height: 200px;
+            /* Perbesar logo tanpa memengaruhi navbar */
             width: auto;
-            transform: translateY(-20px); /* Sesuaikan posisi logo jika terlalu besar */
+            transform: translateY(-20px);
+            /* Sesuaikan posisi logo jika terlalu besar */
         }
-            height: auto;    /* Menjaga rasio aspek gambar */
-            width: 00px;    /* Ukuran default logo */
-        
+
+        height: auto;
+        /* Menjaga rasio aspek gambar */
+        width: 00px;
+        /* Ukuran default logo */
+
 
         .navbar img {
-            height: 100px; /* Sesuaikan tinggi untuk logo yang lebih besar */
-            width: auto;   /* Pertahankan proporsi gambar */
+            height: 100px;
+            /* Sesuaikan tinggi untuk logo yang lebih besar */
+            width: auto;
+            /* Pertahankan proporsi gambar */
         }
 
 
@@ -87,72 +102,88 @@
             text-decoration: none;
 
             position: relative;
-            left: -50px; /* Pindahkan lebih ke kiri */
-            top: -50px; /* Pindahkan sedikit ke atas */
+            left: -50px;
+            /* Pindahkan lebih ke kiri */
+            top: -50px;
+            /* Pindahkan sedikit ke atas */
         }
 
         .navbar .nav-links a:hover {
             text-decoration: underline;
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
     <!-- Navbar section -->
     <nav class="navbar">
         <div class="logo">
-               <img src="{{ asset('images/logo/logo1.png') }}" alt="Logo">
-            
+            <img src="{{ asset('images/logo/logo1.png') }}" alt="Logo">
+
         </div>
         <div class="nav-links">
-            <a href="{{ route('products.buyers') }}">Dashboard</a>
-            <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+            <a href="{{ route('buyer.products') }}">Dashboard</a>
+            <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank">
                 <i class="fab fa-instagram" style="font-size: 20px;"></i>
             </a>
         </div>
-<!--            <img src="{{ asset('images/logo1.png') }}" alt="Logo"> -->
-            
+        <!--            <img src="{{ asset('images/logo1.png') }}" alt="Logo"> -->
+
         </div>
-        
+
 
     </nav>
 
     <div class="container1">
         <nav class="sidebar">
-            
-                <ul>
-                    
-                    <li><a href="{{ route('products.buyers') }}">Dashboard</a></li>
-                    <li><a href="{{ route('category.index') }}">Category</a></li>
+
+            <ul>
+
+                <li><a href="{{ route('buyer.products') }}">Dashboard</a></li>
+                {{-- <li><a href="#">Category</a></li> penjual --}}
+                {{-- <li><a href="#">Product</a></li> penjual --}}
+                {{-- <li><a href="#">Detail Produk</a></li> --}}
+                <li><a href="{{ route('favorites.index') }}">Favorite</a></li>
+                <li><a href="{{ route('carts.index') }}">Cart </a></li>
+                {{-- <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
                     <li><a href="{{ route('detailProducts.index') }}">Detail Produk</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
-                    <li><a href="{{ route('cart.index') }}">Cart Product</a></li>
-                    <button class="btn text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMixMatch" aria-expanded="false" aria-controls="collapseMixMatch">
-                        Mix & Match Product
-                        <i class="fa-solid fa-sort-down"></i>
-                    </button>
-                    <div class="collapse mx-3" id="collapseMixMatch">
-                        <li>
-                            <a href="{{ route('mix-match.index') }}">Rekomendasi</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('mix-match.kustomisasi') }}">Kustomisasi</a>
-                        </li>
-                    </div>
-                    <li><a href="#">Logout</a></li>
-                </ul>
-                
+                    <li><a href="{{ route('cart.index') }}">Cart Product</a></li> --}}
+                <button class="btn text-light" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseMixMatch" aria-expanded="false" aria-controls="collapseMixMatch">
+                    Mix & Match
+                    <i class="fa-solid fa-sort-down"></i>
+                </button>
+                <div class="collapse mx-3" id="collapseMixMatch">
+                    <li>
+                        <a href="{{ route('mix-match.index') }}">Rekomendasi</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('mix-match.kustomisasi') }}">Kustomisasi</a>
+                    </li>
+                </div>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button style="all: unset; cursor: pointer;">Logout</button>
+                    </form>
+                </li>
+            </ul>
 
-                {{-- <li><a href="#">Dashboard</a></li>
+
+            {{-- <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Category</a></li>
                 <li><a href="#">Product</a></li> --}}
-                {{-- <li><a href="#">Logout</a></li> --}}
+            {{-- <li><a href="#">Logout</a></li> --}}
 
             </ul>
         </nav>
@@ -164,7 +195,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+
     @stack('scripts')
 </body>
+
 </html>

@@ -20,7 +20,7 @@ class Cart extends Model
     // Relasi ke Product
     public function product()
     {
-        return $this->belongsTo(Products::class);
+        return $this->belongsTo(Product::class);
     }
 
 }

@@ -40,7 +40,7 @@
                         @if($favorite->photo)
                             <img src="{{ asset('images/'.$favorite->photo) }}" 
                                  class="card-img-top" 
-                                 alt="{{ $favorite->product->name }}">
+                                 alt="{{ $favorite->productname }}">
                         @else
                             <img src="{{ asset('images/default.jpg') }}" 
                                  class="card-img-top" 
@@ -49,15 +49,15 @@
 
                         {{-- Detail Produk --}}
                         <div class="card-body">
-                            <h5 class="card-title">{{ $favorite->product->name }}</h5>
-                            <p class="card-text text-muted">{{ $favorite->product->description }}</p>
+                            <h5 class="card-title">{{ $favorite->productname }}</h5>
+                            <p class="card-text text-muted">{{ $favorite->description }}</p>
                             {{-- Tombol Tambah ke Favorit --}}
-                            <form action="{{ route('favorite.store', $favorite->product->id) }}" method="POST">
+                            {{-- <form action="{{ route('favorites.store', $favorite->product->id) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     Tambah ke Favorit
                                 </button>
-                            </form>
+                            </form> --}}
                         </div>
 
                         {{-- Tombol Aksi --}}
@@ -79,7 +79,7 @@
 </div>
 
 <!-- JQuery for AJAX and FontAwesome for Heart Icon -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     const url = "{{ route('favorites.store') }}"
     $(document).ready(function() {
@@ -120,5 +120,5 @@
         border: 1px solid #dc3545;
         color: #dc3545;
     }
-</style>
+</style> --}}
 @endsection

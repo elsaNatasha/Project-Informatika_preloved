@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rewear.coo Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         /* Importing fonts from Google */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
@@ -34,7 +36,7 @@
             box-shadow: 10px 10px 20px #cbced1, -10px -10px 20px #fff;
         }
 
-        
+
         .logo img {
             width: 70%;
             height: 90px;
@@ -50,10 +52,12 @@
 
                 8px 8px 15px #D47697,
                 -8px -8px 15px #D47697;
-                display: block; /* Ubah gambar menjadi elemen blok */
-                margin: 0 auto; /* Posisi tengah secara horizontal */
-                margin-bottom: 20px;
-}
+            display: block;
+            /* Ubah gambar menjadi elemen blok */
+            margin: 0 auto;
+            /* Posisi tengah secara horizontal */
+            margin-bottom: 20px;
+        }
 
 
         .wrapper .name {
@@ -102,7 +106,7 @@
 
 
             background-color: #ac1e44;
-            background-color:#ac1e44;
+            background-color: #ac1e44;
 
             color: #fff;
             border: none;
@@ -152,15 +156,21 @@
         }
     </style>
 </head>
+
 <body>
     <div class="wrapper">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="logo">
             <img src="images/logoo.jpg" alt="Logo">
         </div>
         <div class="name">
             Preloved B2J
         </div>
-        <form action="{{ route('postLogin') }}" method="POST">
+        <form action="{{ route('login.post') }}" method="POST">
             @csrf
             <div class="form-field">
                 <span class="fas fa-user"></span>
@@ -170,13 +180,15 @@
                 <span class="fas fa-key"></span>
                 <input type="password" name="password" id="password" placeholder="Password">
             </div>
-            <button type="submit" class="btn">Login</button>             
+            <button type="submit" class="btn">Login</button>
         </form>
-        
+
         <div class="text-center">
             <a href="#">Forget password?</a> or <a href="{{ route('register') }}">Sign up</a>
         </div>
     </div>
-    </body>
+</body>
+
 </html>
+
 </html>
