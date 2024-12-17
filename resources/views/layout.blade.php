@@ -130,6 +130,7 @@
                     <li><a href="{{ route('products.buyers') }}">Dashboard</a></li>
                     <li><a href="{{ route('category.index') }}">Category</a></li>
                     <li><a href="{{ route('product.index') }}">Product</a></li>
+                    <li><a href="{{ route('detailProducts.index') }}">Detail Produk</a></li>
                     <li><a href="{{ route('favorites.index') }}">Favorite Product</a></li>
                     <li><a href="{{ route('cart.index') }}">Cart Product</a></li>
                     <button class="btn text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMixMatch" aria-expanded="false" aria-controls="collapseMixMatch">

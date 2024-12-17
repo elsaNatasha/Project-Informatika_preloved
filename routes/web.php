@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MixMatchController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\DetailProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
@@ -31,6 +32,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', function () {
     return view('welcome');
 });
+
 // Halaman layout
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -42,6 +44,7 @@ Route::get('login/', function () {
 Route::get('/layout', function () {
     return view('layout');
 });
+
 
 // Rute untuk register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -65,12 +68,10 @@ Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('ca
 Route::put('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
 
-Route::resource('/product',ProductsController::class);
-Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
-Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
-Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
-
-
+// Route::resource('/product',ProductsController::class);
+// Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
+// Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
+// Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
 
 // Rute untuk melihat produk bagi pembeli (dengan middleware auth)
 Route::middleware('web','auth')->group(function () {
@@ -87,6 +88,9 @@ Route::middleware('web','auth')->group(function () {
     
     // Mix and Match
     Route::get('/mix-match', [MixMatchController::class, 'index'])->name('mix-match.index');
+    
+    
+    
     
     // Favorit
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
@@ -117,9 +121,17 @@ Route::middleware(['auth'])->group(function () {
 
     // Produk
     Route::resource('/product', ProductsController::class);
-    Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
     Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
+    Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
 });
+
+//halaman detail product
+Route::resource('/detailProducts', DetailProductsController::class);
+//Route::put('/product/{id}', [ProductsController::class, 'update'])->name('product.update');
+//Route::get('/product/{id}/edit', [ProductsController::class, 'edit'])->name('product.edit');
+//Route::get('/detailProducts', function () {return view('detailProducts.index');});
+    
+
 
 
 // Kategori
