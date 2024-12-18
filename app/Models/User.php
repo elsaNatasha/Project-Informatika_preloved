@@ -24,6 +24,7 @@ class User extends Authenticatable
         'username',   // Pastikan 'username' ada dalam fillable
         'phone',      // Menambahkan phone
         'address',    // Menambahkan address
+        'role',    
         'remember_token' // Menambahkan remember_token jika menggunakan fitur "remember me"
     ];
 
