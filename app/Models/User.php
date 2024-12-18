@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',   // Pastikan 'username' ada dalam fillable
+        'phone',      // Menambahkan phone
+        'address',    // Menambahkan address
+        'role',    
+        'remember_token' // Menambahkan remember_token jika menggunakan fitur "remember me"
     ];
 
     /**
@@ -42,4 +47,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Menentukan kolom yang digunakan untuk login (gunakan 'username' sebagai pengganti 'email').
+     *
+     * @return string
+     */
+   // public function username()
+    //{
+     //   return 'username'; // Menggunakan 'username' untuk login
+   // }
+
+    /**
+     * Mutator untuk mengenkripsi password.
+     */
+    // public function setPasswordAttribute($value)
+    // {
+    //     // Enkripsi password jika ada perubahan
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 }

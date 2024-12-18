@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
@@ -16,7 +17,7 @@ class CategoryController extends Controller
 
     public function index(){
         $response['categories'] = $this->category->all();
-        return view('pages.category.index')->with($response);
+        return view('pages.admin.categories.index')->with($response);
     }
     
 
@@ -31,7 +32,7 @@ class CategoryController extends Controller
         // Simpan kategori jika validasi lolos
         Category::create($request->all());
     
-        return redirect()->route('category.index')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect()->route('admin.categories')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function destroy($id)
@@ -41,14 +42,14 @@ class CategoryController extends Controller
     
     // Tambahkan pesan flash
     session()->flash('success', 'Category berhasil dihapus!');
-    return redirect()->route('category.index');
+    return redirect()->route('admin.categories');
 
 }
 
 public function edit($id)
 {
     $category = Category::findOrFail($id);
-    return view('pages.category.edit', compact('category'));
+    return view('pages.admin.categories.edit', compact('category'));
 }
 
 public function update(Request $request, $id)
@@ -63,8 +64,6 @@ public function update(Request $request, $id)
 
     // Flash message untuk notifikasi
     session()->flash('success', 'Category berhasil diperbarui!');
-    return redirect()->route('category.index');
+    return redirect()->route('admin.categories');
 }
-
-
 }
