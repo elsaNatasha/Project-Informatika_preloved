@@ -82,6 +82,7 @@
                         var reader = new FileReader();
 
                         reader.onload = function(e) {
+                            $('#imgPreview').empty();
                             $("#imgPreview").append(`<img style="width: 50%;" id="previewImage" src="#" alt="Image Preview">`);
                             $('#previewImage').attr('src', e.target.result).show();
                         };

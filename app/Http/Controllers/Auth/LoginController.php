@@ -39,9 +39,10 @@ class LoginController extends Controller
             $request->session()->regenerate();
             // Log::info('Login berhasil: ' . Auth::user()->email);
             // Log::info('Apakah user terautentikasi? ' . (Auth::check() ? 'Ya' : 'Tidak'));
-            return redirect()->route('buyer.products');
-        } else {
-            // Log::error('Login gagal untuk email: ' . $request->input('email'));
+            if(Auth::user()->role == 1) {
+                return redirect()->route('buyer.products');
+            }
+            return redirect()->route('admin.products');
         }
 
         // Jika login gagal

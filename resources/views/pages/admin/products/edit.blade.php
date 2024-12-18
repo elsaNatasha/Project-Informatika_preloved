@@ -1,10 +1,12 @@
-@extends('layout')
+@extends('admin')
 
 @section('content')
 <div class="container">
     <h2 class="text-center">Edit Product</h2>
 
-    <form action="{{ route('product.update', $product->id) }}" method="POST">
+    {{-- <form action="{{ route('product.update', $product->id) }}" method="POST"> --}}
+    <form action="{{ route('admin.products.update', $product->id) }}" method="POST">
+    {{-- <form action="#" method="POST"> --}}
         @csrf
         @method('PUT')
 
@@ -45,6 +47,7 @@
             <button type="submit" class="btn" style="background-color: #a15252; color: white; font-weight: bold;">
                 Update Product
             </button>
+            <a class="btn btn-secondary" href="{{ route('admin.products') }}">Cancel</a>
         </div>
     </form>
 </div>

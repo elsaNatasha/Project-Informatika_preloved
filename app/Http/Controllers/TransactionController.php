@@ -28,21 +28,19 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // Retrieve the uploaded file
         $image = $request->file('image');
 
-        // Generate a unique name for the file
+        // unique name
         $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-        // Move the file to the public/images directory
+        // Move to the public/ dir
         $image->move(public_path('payments'), $imageName);
 
         Transaction::create([
             'order_id' => $request->order_id,
             'payment_proof' => $imageName
         ]);
-        // Optional: Return a success message or save the filename to the database
+        
         return back()->with('success', 'Berhasil upload bukti pembayaran!')->with('image', $imageName);
     }
 

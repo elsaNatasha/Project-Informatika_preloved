@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MixMatchController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DetailProductsController;
@@ -14,6 +13,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
+
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +96,24 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
 // role 2 => penjual
 Route::middleware(['auth', 'role:2'])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('admin.categories');
+            Route::post('/', [CategoryController::class, 'store'])->name('admin.categories.store');
+            Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+            Route::put('/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
+            Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+        });
+
+        Route::prefix('products')->group(function () {
+            Route::get('/', [AdminProductController::class, 'index'])->name('admin.products');
+            Route::post('/', [AdminProductController::class, 'store'])->name('admin.products.store');
+            Route::get('/{id}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+            Route::put('/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
+            Route::delete('/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+        });
+    });
+
     // Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
     // Route::get('/dashboard', [DashboardController::class, 'index']);
     // Route::get('/layout', function () {
