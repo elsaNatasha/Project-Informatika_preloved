@@ -17,6 +17,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\MixMatchController as AdminMixMatchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,12 @@ Route::middleware(['auth', 'role:2'])->group(function () {
             Route::get('/', [AdminOrderController::class, 'index'])->name('admin.orders');
             Route::get('/{id}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
             Route::put('/{id}', [AdminOrderController::class, 'update'])->name('admin.orders.update');
+        });
+
+        Route::prefix('mix-match')->group(function () {
+            Route::get('/', [AdminMixMatchController::class, 'index'])->name('admin.mix-match');
+            Route::post('/', [AdminMixMatchController::class, 'store'])->name('admin.mix-match.store');
+            Route::delete('/{id}', [AdminMixMatchController::class, 'destroy'])->name('admin.mix-match.destroy');
         });
     });
 });

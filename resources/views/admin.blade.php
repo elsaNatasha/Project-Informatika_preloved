@@ -129,7 +129,7 @@
 
         </div>
         <div class="nav-links">
-            <a href="{{ route('buyer.products') }}">Dashboard</a>
+            <a href="{{ route('admin.products') }}">Dashboard</a>
             <a href="https://www.instagram.com/rewear.coo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 target="_blank">
                 <i class="fab fa-instagram" style="font-size: 20px;"></i>
@@ -149,6 +149,7 @@
                 <li><a href="{{ route('admin.categories') }}">Kategori</a></li>
                 <li><a href="{{ route('admin.products') }}">Produk</a></li>
                 <li><a href="{{ route('admin.orders') }}">Pesanan</a></li>
+                <li><a href="{{ route('admin.mix-match') }}">Mix & Match</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MixMatchRecommendations extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'top_id',
+        'bottom_id',
+    ];
 }
