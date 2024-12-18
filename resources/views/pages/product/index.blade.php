@@ -56,10 +56,6 @@
                                         </button>
                                     </form>
                                 @endif
-                                <a href="{{ route('buyer.products.show', ['id' => $product->id]) }}"
-                                    class="btn btn-outline-success btn-sm mx-1">
-                                    Detail
-                                </a>
                             </div>
                         </div>
                     </div>
