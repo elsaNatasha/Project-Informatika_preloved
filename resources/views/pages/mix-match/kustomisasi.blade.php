@@ -1,44 +1,12 @@
-{{-- <!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preloved</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body> --}}
-
 @extends('layout')
 @section('content')
-    {{-- <nav class="navbar navbar-expand-lg" style="background-color: #bea2a2">
-            <div class="container-fluid container">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Explore</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-cart-plus"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-circle-user"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> --}}
-
     <div class="container">
-        <a href="/" class="text-dark-emphasis"><i class="fa-solid fa-chevron-left"></i> Mix & Match</a>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        <a href="{{ route('mix-match.index') }}" class="text-dark-emphasis"><i class="fa-solid fa-chevron-left"></i> Mix & Match</a>
 
         <div class="row overflow-x-auto flex-nowrap w-100 mt-5">
             @foreach ($products as $product)
@@ -52,8 +20,40 @@
                         </div>
                         <div class="card-footer bg-transparent border border-0">
                             <div class="d-flex">
-                                <button class="ms-auto btn btn-light"><i class="fa-regular fa-heart"></i></button>
-                                <button class="btn btn-light"><i class="fa-solid fa-cart-plus"></i></button>
+                                @if ($product->isFavorite)
+                                    <a href="{{ route('favorites.index') }}" type="button"
+                                        class="btn btn-danger btn-sm mx-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="Barang sudah ditambahkan ke favorite">
+                                        <i class="fa fa-heart"></i>
+                                    </a>
+                                @else
+                                    <form action="{{ route('favorites.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button class="btn btn-outline-secondary btn-sm mx-1">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </button>
+                                    </form>
+                                @endif
+
+                                @if ($product->isAddedCart)
+                                    <a href="{{ route('carts.index') }}" type="button" class="btn btn-primary btn-sm mx-1"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="Barang sudah ditambahkan ke keranjang">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                @else
+                                    <form action="{{ route('carts.store') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart"
+                                            data-product-id="{{ $product->id }}">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
+                                @endif
+                                {{-- <button class="ms-auto btn btn-light"><i class="fa-regular fa-heart"></i></button>
+                                <button class="btn btn-light"><i class="fa-solid fa-cart-plus"></i></button> --}}
                             </div>
                         </div>
                     </div>
@@ -64,28 +64,30 @@
         <section class="d-flex justify-content-center align-items-center flex-column mt-5">
             <div class="d-flex flex-column">
                 <!-- Button trigger modal top -->
-                <button type="button" class="btn" style="background-color: #bea2a2;color: white" data-bs-toggle="modal" data-bs-target="#top">
+                <button type="button" class="btn" style="background-color: #bea2a2;color: white" data-bs-toggle="modal"
+                    data-bs-target="#top">
                     Pilih atasan
                 </button>
-    
+
                 {{-- Figure atasan --}}
                 <figure class="figure">
-                    <img id="image-preview-top" src="{{ asset('images/default-thumbnail.png') }}" class="figure-img rounded" alt="..."
-                        style="width: 300px;height: 400px;object-fit: contain;">
+                    <img id="image-preview-top" src="{{ asset('images/default-thumbnail.png') }}"
+                        class="figure-img rounded" alt="..." style="width: 300px;height: 400px;object-fit: contain;">
                     <figcaption class="figure-caption">Atasan</figcaption>
                 </figure>
             </div>
-    
+
             <div class="d-flex flex-column" style="margin-top: -2rem">
                 {{-- Figure bawahan --}}
                 <figure class="figure border border-0">
-                    <img id="image-preview-bottom" src="{{ asset('images/default-thumbnail.png') }}" class="figure-img rounded" alt="..."
-                    style="width: 300px;height: 400px;object-fit: contain;">
+                    <img id="image-preview-bottom" src="{{ asset('images/default-thumbnail.png') }}"
+                        class="figure-img rounded" alt="..." style="width: 300px;height: 400px;object-fit: contain;">
                     <figcaption class="figure-caption">Bawahan</figcaption>
                 </figure>
 
                 {{-- Button modal bottom --}}
-                <button type="button" class="btn" style="background-color: #bea2a2;color: white" data-bs-toggle="modal" data-bs-target="#bottom">
+                <button type="button" class="btn" style="background-color: #bea2a2;color: white" data-bs-toggle="modal"
+                    data-bs-target="#bottom">
                     Pilih bawahan
                 </button>
             </div>
@@ -172,10 +174,3 @@
         });
     </script>
 @endsection
-
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-</body>
-
-</html> --}}

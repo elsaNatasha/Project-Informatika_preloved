@@ -12,8 +12,6 @@ class CartController extends Controller
     {
         // Ambil item keranjang pengguna saat ini dengan relasi produk
         $carts = Cart::where('user_id', auth()->id())->with('product')->get();
-        // Debugging: Lihat isi data keranjang
-        //dd($carts);
 
         // Tampilkan halaman keranjang
         return view('pages.cart.index', compact('carts'));
@@ -41,7 +39,9 @@ class CartController extends Controller
             'product_id' => $request->product_id,
         ]);
 
-        return redirect()->route('buyer.products')->with('success', 'Berhasil tambah ke keranjang');
+        return redirect()->back()->with('success', 'Berhasil tambah ke keranjang');
+
+        // return redirect()->route('buyer.products')->with('success', 'Berhasil tambah ke keranjang');
 
         // Menyimpan data produk ke keranjang
         //     $cart = new Cart();

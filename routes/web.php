@@ -13,6 +13,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TransactionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +46,7 @@ Route::middleware('redirectIfAuthenticated')->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
 });
 
+// role 1 => pembeli
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::prefix('products')->group(function () {
         Route::get('/', [ProductsController::class, 'index'])->name('buyer.products');
@@ -62,6 +65,16 @@ Route::middleware(['auth', 'role:1'])->group(function () {
         Route::delete('/{idProduct}', [CartController::class, 'destroy'])->name('carts.destroy');
     });
 
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('orders.index');
+        Route::post('/', [OrderController::class, 'store'])->name('orders.store');
+        Route::get('/{id}', [OrderController::class, 'show'])->name('orders.show');
+    });
+
+    Route::prefix('transactions')->group(function () {
+        Route::post('/', [TransactionController::class, 'store'])->name('transactions.store');
+    });
+
     Route::prefix('mix-match')->group(function () {
         Route::get('/', [MixMatchController::class, 'index'])->name('mix-match.index');
         Route::get('/kustomisasi', [MixMatchController::class, 'kustomisasi'])->name('mix-match.kustomisasi');
@@ -78,7 +91,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     // Route::post('/cart', [CartController::class, 'store'])->name('cart.add');
 });
 
-// role 2 = penjual
+// role 2 => penjual
 Route::middleware(['auth', 'role:2'])->group(function () {
     // Route::get('/products', [ProductsController::class, 'showForBuyers'])->name('products.buyers');
     // Route::get('/dashboard', [DashboardController::class, 'index']);

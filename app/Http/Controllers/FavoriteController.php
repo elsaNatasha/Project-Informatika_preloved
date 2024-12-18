@@ -58,9 +58,8 @@ class FavoriteController extends Controller
             'product_id' => $productId,
         ]);
 
-        return redirect()->route('buyer.products')->with('success', 'Produk ditambahkan ke favorit');
-        // return response()->json(['success' => 'Produk ditambahkan ke favorit']);
-        // }
+        return redirect()->back()->with('success', 'Produk ditambahkan ke favorit!');
+        // return redirect()->route('buyer.products')->with('success', 'Produk ditambahkan ke favorit');
     }
 
     public function destroy($id)

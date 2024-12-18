@@ -14,6 +14,12 @@ use App\Models\Products;
 
 class CheckoutController extends Controller
 {
+
+    public function store(Request $request)
+    {
+        dd($request);
+    }
+
     public function showCheckoutForm(Request $request)
     {
         // Dekode produk yang dipilih

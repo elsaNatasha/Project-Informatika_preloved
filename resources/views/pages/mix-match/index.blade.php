@@ -23,7 +23,7 @@
                                     <p class="card-text">{{ $data->top_name }} : <span>{{ $data->top_desc }}</span></p>
                                     <p class="card-text">{{ $data->bottom_name }} : <span>{{ $data->bottom_desc }}</span></p>
                                     <div class="d-flex">
-                                        <button class="ms-auto btn btn-light"><i class="fa-regular fa-heart"></i></button>
+                                        {{-- <button class="ms-auto btn btn-light"><i class="fa-regular fa-heart"></i></button> --}}
                                     </div>
                                 </div>
                             </div>
