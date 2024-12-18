@@ -45,6 +45,7 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'username' => $request->username,
+            'role' => 1,
             'password' => Hash::make($request->password), // Menggunakan hashing untuk password
         ]);
 
