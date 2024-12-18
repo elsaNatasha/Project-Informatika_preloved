@@ -41,14 +41,21 @@
                                     </form>
                                 @endif
 
-                                <form action="{{ route('carts.store') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart"
-                                        data-product-id="{{ $product->id }}">
+                                @if ($product->isAddedCart)
+                                    <a href="{{ route('carts.index') }}" type="button" class="btn btn-primary btn-sm mx-1" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" data-bs-title="Barang sudah ditambahkan ke keranjang">
                                         <i class="fa fa-shopping-cart"></i>
-                                    </button>
-                                </form>
+                                    </a>
+                                @else
+                                    <form action="{{ route('carts.store') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button class="btn btn-outline-primary btn-sm mx-1 add-to-cart"
+                                            data-product-id="{{ $product->id }}">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
+                                @endif
                                 <a href="{{ route('buyer.products.show', ['id' => $product->id]) }}"
                                     class="btn btn-outline-success btn-sm mx-1">
                                     Detail

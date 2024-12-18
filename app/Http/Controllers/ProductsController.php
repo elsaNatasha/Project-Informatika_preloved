@@ -24,9 +24,10 @@ class ProductsController extends Controller
         $products = Product::with('category', 'favorites')->get();
         $favorites = Favorite::where('user_id', auth()->id())->get();
         $carts = Cart::where('user_id', auth()->id())->get();
-        dd($carts);
-        $newArr = $products->map(function($item) use (&$favorites) {
+        // dd($carts);
+        $newArr = $products->map(function($item) use (&$favorites, &$carts) {
             $item['isFavorite'] = $favorites->firstWhere('product_id', $item->id) ? true : false;
+            $item['isAddedCart'] = $carts->firstWhere('product_id', $item->id) ? true : false;
             return $item;
         });
 
