@@ -148,7 +148,7 @@
             <ul>
                 <li><a href="{{ route('admin.categories') }}">Kategori</a></li>
                 <li><a href="{{ route('admin.products') }}">Produk</a></li>
-                {{-- <li><a href="{{ route('admin.index') }}">Pesanan</a></li> --}}
+                <li><a href="{{ route('admin.orders') }}">Pesanan</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

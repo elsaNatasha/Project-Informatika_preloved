@@ -15,10 +15,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::where('user_id', auth()->id())->get();
-        // dd($orders);
+
         return view('pages.orders.index', compact('orders'));
-        // $orders = Order::where('status', 'waiting verification')->get();
-        // return view('admin.orders.index', compact('orders'));
     }
 
     public function store(Request $request)
@@ -43,10 +41,10 @@ class OrderController extends Controller
             $lastOrder = Order::where('user_id', auth()->id())
                 ->orderBy('created_at', 'desc')
                 ->first()->id;
-                
+
             $arrReqIdProduk = $request->produk;
             $arrIdProduk = explode(',', $arrReqIdProduk);
-            
+
             foreach ($arrIdProduk as $arr) {
                 OrderItem::create([
                     'order_id' => $lastOrder,
@@ -71,16 +69,14 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        // dd($id);
         $order = Order::findOrFail($id);
         $products = OrderItem::join('products as p', 'p.id', '=', 'order_items.product_id')
             ->where('order_id', $id)
             ->select('p.productname', 'p.price')
             ->get();
 
-            $isPay = count(Transaction::where('order_id', $id)->get()) > 0;
-            // dd($isPay);
-        // dd($products);
+        $isPay = count(Transaction::where('order_id', $id)->get()) > 0;
+        
         return view('pages.orders.show', compact('id', 'order', 'products', 'isPay'));
     }
 

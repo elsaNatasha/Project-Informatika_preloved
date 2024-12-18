@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h3 align="center">Input Products</h3>
+        <h3 align="center">Daftar Produk</h3>
         <br>
 
         <!-- Menampilkan notifikasi jika ada pesan sukses -->

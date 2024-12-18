@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <h3 align="center">Category</h3>
+        <h3 align="center">Daftar Kategori</h3>
         <br>
         <div class="row">
             <div class="col-md-2"></div>
