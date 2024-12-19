@@ -172,7 +172,7 @@
             <button type="submit" class="btn">Login</button>             
         </form>
         <div class="text-center">
-            <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+            <a href="#">Sign up</a>
         </div>
     </div>
 </body>
